@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 18:15:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:54:57 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define PHILO_SLEEPING 3
 # define PHILO_THINKING 4
 # define PHILO_WAIT	5
-# define PHILO_ONLY_ONE 6
 
 # include <unistd.h>
 # include <stdio.h>
