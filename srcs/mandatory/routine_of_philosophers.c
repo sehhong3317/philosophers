@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:12:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 18:02:58 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/03/01 19:34:01 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ static void	philo_only_one_case(t_info *info, int th_num)
 		{
 			pthread_mutex_unlock(&info->philos[th_num].fork);
 			print_philo_death(info);
-			break ;	
+			break ;
 		}
 		if (msg_count == 1)
 			print_action(PHILO_FORK_1, info, th_num);
 	}
 }
-
 
 int	let_even_philos_run_behind(t_philo *philo, int thread_num)
 {
@@ -48,24 +47,24 @@ int	let_even_philos_run_behind(t_philo *philo, int thread_num)
 
 int	takes_forks(t_info *info, int th_num, int (*fptr)(int, t_info *, int))
 {
-    if(info->dead_philo >= 0)
-    {
+	if (info->dead_philo >= 0)
+	{
 		print_philo_death(info);
-		return (-1);    
-    }
-    pthread_mutex_lock(&info->philos[th_num].fork);
-    if (info->num_of_philo == 1)
-    {	
+		return (-1);
+	}
+	pthread_mutex_lock(&info->philos[th_num].fork);
+	if (info->num_of_philo == 1)
+	{	
 		philo_only_one_case(info, th_num);
-        return (-1);
-    }
-    if (fptr(PHILO_FORK_1, info, th_num) == -1)
-        return (-1);
-    pthread_mutex_lock(&info->philos[(th_num + 1) % \
-        info->num_of_philo].fork);
-    if (fptr(PHILO_FORK_2, info, th_num) == -1)
-        return (-1);
-    return(0);
+		return (-1);
+	}
+	if (fptr(PHILO_FORK_1, info, th_num) == -1)
+		return (-1);
+	pthread_mutex_lock(&info->philos[(th_num + 1) % \
+		info->num_of_philo].fork);
+	if (fptr(PHILO_FORK_2, info, th_num) == -1)
+		return (-1);
+	return (0);
 }
 
 int	eats(t_philo *philo, int th_num, int (*fptr)(int, t_info *, int), \

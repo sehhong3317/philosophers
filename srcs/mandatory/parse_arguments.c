@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/02/22 12:00:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/03/01 18:21:01 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static long	ft_atoi(char *str)
 
 static void	initiate_info(t_info *info)
 {
-	// info->vital = 0;
 	info->dead_philo = -1;
 	info->death_msg = 0;
 	info->meal_done = 0;
