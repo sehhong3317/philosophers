@@ -6,13 +6,12 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 10:14:13 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 20:03:04 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/03/02 14:32:29 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// keep monitoring the status of all philosophers
 void	update_philo_status(t_info *info)
 {
 	int	(*fptr)(t_info *);
@@ -28,7 +27,6 @@ void	update_philo_status(t_info *info)
 	}
 }
 
-// check if all the philosophers are alive or not
 int	update_philo_status_wo_option(t_info *info)
 {
 	int		i;
@@ -48,8 +46,6 @@ int	update_philo_status_wo_option(t_info *info)
 	return (0);
 }
 
-/* check if all the philosophers are alive 
-and if they finished their number of meal */
 int	update_philo_status_w_option(t_info *info)
 {
 	int	i;
