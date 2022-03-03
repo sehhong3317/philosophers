@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 15:50:17 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 19:36:17 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/03/03 11:26:58 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ void	*start_routine(void *arg)
 	{
 		if (takes_forks(philo->info, thd_num, philo->info->fptr) == -1)
 			break ;
-		if (eats(philo, thd_num, philo->info->fptr, philo->info->fptr2))
+		if (eats(philo, thd_num, philo->info->fptr, philo->info->fptr2) == -1)
 			break ;
 		pthread_mutex_unlock(&philo->info->philos[thd_num].fork);
 		pthread_mutex_unlock(&philo->info->philos[(thd_num + 1) % \
 			philo->info->num_of_philo].fork);
-		if (sleeps(philo, thd_num, philo->info->fptr, philo->info->fptr2))
+		if (sleeps(philo, thd_num, philo->info->fptr, philo->info->fptr2) == -1)
 			break ;
-		if (philo->info->fptr(PHILO_THINKING, philo->info, thd_num))
+		if (philo->info->fptr(PHILO_THINKING, philo->info, thd_num) == -1)
 			break ;
 	}
 	return (NULL);
