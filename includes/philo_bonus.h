@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/12 22:50:28 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/13 00:47:06 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@ typedef struct	s_box
 	sem_t	*sem_print;
 }	t_box;
 
-void	parse_arguments(int argc, char **argv, t_box *box);
 void	exit_with_err(char *str);
+void	parse_arguments(int argc, char **argv, t_box *box);
+void	eats(t_box *box, int idx);
+void	sleeps(t_box *box, int idx);
+void	thinks(t_box *box, int idx);
 void	set_table(t_box *box, int argc, char **argv);
 time_t	get_time_in_ms(void);
+void	set_time(time_t time);
 
 #endif

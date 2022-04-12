@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   time_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/12 19:06:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/13 00:43:15 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ time_t	get_time_in_ms(void)
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 
-// time_t	update_meal_time(t_philo *philo)
-// {
-// 	time_t	meal_time_in_ms;
+void	set_time(time_t time)
+{
+	time_t	target_time;
 
-// 	meal_time_in_ms = get_time_in_ms();
-// 	philo->last_meal = meal_time_in_ms();
-// 	return (meal_time_in_ms - philo->)
-// }
+	target_time = get_time_in_ms() + time;
+	while (get_time_in_ms() < target_time)
+		usleep(100);
+}
