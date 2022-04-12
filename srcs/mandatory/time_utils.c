@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 11:14:26 by sehhong           #+#    #+#             */
-/*   Updated: 2022/02/19 22:46:28 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:18:15 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philos.h"
 
 time_t	get_time_in_ms(void)
 {

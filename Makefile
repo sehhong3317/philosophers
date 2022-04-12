@@ -3,28 +3,56 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/03/03 13:43:00 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/13 00:07:32 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS_DIR = ./srcs/mandatory/
-SRCS = $(addprefix $(SRCS_DIR), \
-			check_error.c main.c mutex_utils.c parse_arguments.c \
-			print_msg.c routine_of_philosophers.c start_routine.c \
-			thread_utils.c time_utils.c update_philo_status.c \
-			)
-OBJS = $(SRCS:.c=.o)
+SRCS_M_DIR 	= ./srcs/mandatory/
+SRCS_M 		= $(addprefix $(SRCS_M_DIR), \
+				check_error.c \
+				main.c \
+				mutex_utils.c \
+				parse_arguments.c \
+				print_msg.c \
+				routine_of_philosophers.c \
+				start_routine.c \
+				thread_utils.c \
+				time_utils.c \
+				update_philo_status.c \
+				)
+OBJS_M 		= $(SRCS_M:.c=.o)
 
-CC = gcc
-RM = rm -f
-AR = ar rcs
-CFLAGS = -Wall -Werror -Wextra
-INCLUDE = -I./includes/
+SRCS_B_DIR	= ./srcs/bonus/
+SRCS_B		= $(addprefix $(SRCS_B_DIR), \
+				exit_with_err_bonus.c \
+				main_bonus.c \
+				parse_arguments_bonus.c \
+				set_table_bonus.c \
+				time_utils_bonus.c \
+				)
+OBJS_B		= $(SRCS_B:.c=.o)
+
+
+ifdef WITH_BONUS
+	OBJS 	= $(OBJS_B)
+else
+	OBJS 	= $(OBJS_M)
+endif
+
+ifdef DEBUG
+	CFLAGS 	= -g3 -fsanitize=address
+else
+	CFLAGS 	= -Wall -Wextra -Werror
+endif
+
+CC 			= cc
+RM 			= rm -f
+INCLUDE		= -I./includes/
 
 all: $(NAME)
 
@@ -34,8 +62,11 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $^
 
+bonus:
+	make WITH_BONUS=1 all
+
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS_M) $(OBJS_B)
 
 fclean: clean
 	$(RM) $(NAME)

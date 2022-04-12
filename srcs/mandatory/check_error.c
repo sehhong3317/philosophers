@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:45:13 by sehhong           #+#    #+#             */
-/*   Updated: 2022/02/22 12:00:45 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:17:16 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 static size_t	ft_strlen(const char *str)
 {

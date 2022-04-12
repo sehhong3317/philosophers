@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_arguments.c                                  :+:      :+:    :+:   */
+/*   parse_arguments_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/10 15:17:27 by sehhong          ###   ########.fr       */
+/*   Created: 2022/04/10 21:25:05 by sehhong           #+#    #+#             */
+/*   Updated: 2022/04/12 14:19:53 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static long	ft_atoi(char *str)
 {
@@ -34,31 +34,31 @@ static long	ft_atoi(char *str)
 	return ((long)nbr);
 }
 
-static void	initiate_info(t_info *info)
+static	void	check_arg_range(t_box box)
 {
-	info->dead_philo = -1;
-	info->death_msg = 0;
-	info->meal_done = 0;
-	info->num_of_meal = -1;
+	if (box.num_of_philo < 1 || box.time_to_die <= 0 ||
+		box.time_to_eat < 0 || box.time_to_sleep < 0)
+		exit_with_err("Invalid range of arguments");
 }
 
-int	parse_arguments(int argc, char **argv, t_info *info)
+static	void	check_min_meal(t_box *box, char *min_meal)
+{
+	box->min_meal = (int)ft_atoi(min_meal);
+	if (box->min_meal < 1)
+		exit_with_err("Invalid value assigned for the value \
+			of \"number of times each philosopher must eat\"");
+}
+
+
+void	parse_arguments(int argc, char **argv, t_box *box)
 {
 	if (argc != 5 && argc != 6)
-		return (-1);
-	initiate_info(info);
-	info->num_of_philo = (int)ft_atoi(argv[1]);
-	info->time_to_die = (time_t)ft_atoi(argv[2]);
-	info->time_to_eat = (time_t)ft_atoi(argv[3]);
-	info->time_to_sleep = (time_t)ft_atoi(argv[4]);
+		exit_with_err("Invalid number of arguments");
+	box->num_of_philo = (int)ft_atoi(argv[1]);
+	box->time_to_die = (time_t)ft_atoi(argv[2]);
+	box->time_to_eat = (time_t)ft_atoi(argv[3]);
+	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
+	check_arg_range(*box);
 	if (argc == 6)
-	{	
-		info->num_of_meal = (int)ft_atoi(argv[5]);
-		if (info->num_of_meal < 1)
-			return (-1);
-	}
-	if (info->num_of_philo < 1 || info->time_to_die <= 0 \
-		|| info->time_to_eat < 0 || info->time_to_sleep < 0)
-		return (-1);
-	return (0);
+		check_min_meal(box, argv[5]);
 }

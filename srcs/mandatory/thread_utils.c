@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   thread_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
-/*   Updated: 2022/02/19 16:07:41 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:18:10 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	initiate_philo_info(t_info *info)
 {

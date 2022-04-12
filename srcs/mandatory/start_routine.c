@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 15:50:17 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/03 14:40:24 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:18:01 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	check_vitality(int mode, t_info *info, int th_num)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_philo_status.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 10:14:13 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/02 14:32:29 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 20:11:10 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 void	update_philo_status(t_info *info)
 {

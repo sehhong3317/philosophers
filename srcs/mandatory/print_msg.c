@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:41:30 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 14:49:13 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:17:52 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 void	print_philo_death(t_info *info)
 {

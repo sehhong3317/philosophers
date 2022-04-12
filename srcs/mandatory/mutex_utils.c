@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:57 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 14:55:16 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:17:22 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 int	initiate_mutex(t_info *info)
 {

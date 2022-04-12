@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine_of_philosophers.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:12:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/03/01 19:34:01 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/10 15:17:56 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 static void	philo_only_one_case(t_info *info, int th_num)
 {
