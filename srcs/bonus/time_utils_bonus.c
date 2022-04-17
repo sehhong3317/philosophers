@@ -6,13 +6,13 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/13 00:43:15 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/17 08:40:01 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-time_t	get_time_in_ms(void)
+time_t	get_time(void)
 {
 	struct timeval	curr_time;
 
@@ -25,7 +25,7 @@ void	set_time(time_t time)
 {
 	time_t	target_time;
 
-	target_time = get_time_in_ms() + time;
-	while (get_time_in_ms() < target_time)
+	target_time = get_time() + time;
+	while (get_time() < target_time)
 		usleep(100);
 }
