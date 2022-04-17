@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:03:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/17 09:17:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/17 15:11:02 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static	void	parse_args(int argc, char **argv, t_box *box)
 	box->time_to_die = (time_t)ft_atoi(argv[2]);
 	box->time_to_eat = (time_t)ft_atoi(argv[3]);
 	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
-	if (box->num_of_philo <= 0 || box->time_to_die <= 0 ||
+	if (box->num_of_philo <= 0 || box->time_to_die <= 0 || \
 		box->time_to_eat <= -1 || box->time_to_sleep <= -1)
 		exit_with_err("Invalid range of arguments");
 	if (argc == 6)

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/17 11:15:07 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:03:09 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_philo
 	pid_t			pid;
 	pthread_t		tid;
 	time_t			last_meal;
-	struct	s_box	*box;
+	struct s_box	*box;
 	sem_t			*sems[3];
 }	t_philo;
 
@@ -55,11 +55,14 @@ typedef struct	s_box
 }	t_box;
 
 void	call_philos(t_box *box, sem_t **sems);
-void	exit_with_err(char *str);
-void	parse_args(int argc, char **argv, t_box *box);
-void	do_routine(t_philo philo);
+void	finish_meal(t_box box, sem_t *sems[3]);
+void	initiate_semaphores(t_box box, sem_t *sems[3]);
 void	set_table(t_box *box, int argc, char **argv);
+
+/* utils */
+void	exit_with_err(char *str);
 time_t	get_time(void);
+void	print_stat(t_philo philo, char *str);
 void	set_time(time_t time);
 
 #endif
