@@ -12,34 +12,52 @@
 
 #include "philo_bonus.h"
 
-void	finish_meal(t_box *box, sem_t *sems[4])
+void	finish_meal(t_box *box, t_sems *sems)
 {
-	sem_close(sems[FORK]);
-	sem_close(sems[PRINT]);
-	sem_close(sems[MEAL]);
-	sem_close(sems[DEATH]);
+	int	i;
+
+	sem_close(sems->sem_fork);
+	sem_close(sems->sem_print);
+	sem_close(sems->sem_meal);
+	sem_close(sems->sem_death);
 	sem_unlink(SEM_FORK_NAME);
 	sem_unlink(SEM_PRINT_NAME);
 	sem_unlink(SEM_MEAL_NAME);
 	sem_unlink(SEM_DEATH_NAME);
+	i = -1;
+	while (++i < box->num_of_philo)
+	{
+		if (box->philos[i])
+		{
+			free(box->philos[i]);
+			box->philos[i] = NULL;
+		}
+	}
 	free(box->philos);
 	box->philos = NULL;
 }
 
-void	initiate_semaphores(t_box *box, sem_t *sems[4])
+static	void	check_sem_open(t_box *box, t_sems *sems, sem_t *sem)
 {
-	sem_unlink(SEM_FORK_NAME);
-	sem_unlink(SEM_PRINT_NAME);
-	sem_unlink(SEM_MEAL_NAME);
-	sem_unlink(SEM_DEATH_NAME);
-	sems[FORK] = sem_open(SEM_FORK_NAME, O_CREAT, 0600, box->num_of_philo);
-	sems[PRINT] = sem_open(SEM_PRINT_NAME, O_CREAT, 0600, 1);
-	sems[MEAL] = sem_open(SEM_MEAL_NAME, O_CREAT, 0600, 0);
-	sems[DEATH] = sem_open(SEM_DEATH_NAME, O_CREAT, 0600, 0);
-	if (sems[FORK] == SEM_FAILED || sems[PRINT] == SEM_FAILED \
-		|| sems[MEAL] == SEM_FAILED || sems[DEATH] == SEM_FAILED)
+	if (sem == SEM_FAILED)
 	{
 		finish_meal(box, sems);
-		exit_with_err("failed to open semaphore");
+		exit_with_err("Failed to call sem_open()");
 	}
+}
+
+void	initiate_semaphores(t_box *box, t_sems *sems)
+{
+	sem_unlink(SEM_FORK_NAME);
+	sems->sem_fork = sem_open(SEM_FORK_NAME, O_CREAT, 0600, box->num_of_philo);
+	check_sem_open(box, sems, sems->sem_fork);
+	sem_unlink(SEM_PRINT_NAME);
+	sems->sem_print = sem_open(SEM_PRINT_NAME, O_CREAT, 0600, 1);
+	check_sem_open(box, sems, sems->sem_print);
+	sem_unlink(SEM_MEAL_NAME);
+	sems->sem_meal = sem_open(SEM_MEAL_NAME, O_CREAT, 0600, 0);
+	check_sem_open(box, sems, sems->sem_meal);
+	sem_unlink(SEM_DEATH_NAME);
+	sems->sem_death = sem_open(SEM_DEATH_NAME, O_CREAT, 0600, 0);
+	check_sem_open(box, sems, sems->sem_death);
 }

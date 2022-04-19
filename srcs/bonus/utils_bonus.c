@@ -29,7 +29,7 @@ time_t	get_time(void)
 
 void	print_stat(t_philo *philo, char *str, int if_eats)
 {
-	sem_wait(philo->sems[PRINT]);
+	sem_wait(philo->sems->sem_print);
 	if (if_eats)
 	{
 		philo->last_meal = get_time();
@@ -37,12 +37,12 @@ void	print_stat(t_philo *philo, char *str, int if_eats)
 		printf("%ld %d %s\n", philo->last_meal - philo->box->simul_start, \
 		philo->idx, str);
 		if (philo->meal_cnt == philo->box->min_meal)
-			sem_post(philo->sems[MEAL]);
+			sem_post(philo->sems->sem_meal);
 	}
 	else
 		printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
 			philo->idx, str);
-	sem_post(philo->sems[PRINT]);
+	sem_post(philo->sems->sem_print);
 }
 
 void	set_time(time_t time)
@@ -52,4 +52,15 @@ void	set_time(time_t time)
 	target_time = get_time() + time;
 	while (get_time() < target_time)
 		usleep(100);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned char	*ret;
+
+	ret = malloc(size * count);
+	if (!ret)
+		return (0);
+	memset(ret, 0, count * size);
+	return (ret);
 }

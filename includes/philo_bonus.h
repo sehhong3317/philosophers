@@ -12,9 +12,9 @@
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
-# define SEM_FORK_NAME	"/sem_fork"
-# define SEM_PRINT_NAME	"/sem_print"
-# define SEM_MEAL_NAME	"/sem_meal"
+# define SEM_FORK_NAME "/sem_fork"
+# define SEM_PRINT_NAME "/sem_print"
+# define SEM_MEAL_NAME "/sem_meal"
 # define SEM_DEATH_NAME "/sem_death"
 
 # include <pthread.h>
@@ -27,13 +27,13 @@
 # include <stdio.h>
 # include <unistd.h>
 
-typedef enum e_sem
+typedef struct	s_sems
 {
-	FORK = 0,
-	PRINT,
-	DEATH, 
-	MEAL
-}	t_sem;
+	sem_t	*sem_fork;
+	sem_t	*sem_print;
+	sem_t	*sem_death;
+	sem_t	*sem_meal;
+}	t_sems;
 
 typedef struct	s_philo
 {
@@ -43,7 +43,7 @@ typedef struct	s_philo
 	time_t			last_meal;
 	int				meal_cnt;
 	struct s_box	*box;
-	sem_t			*sems[4];
+	t_sems			*sems;
 }	t_philo;
 
 typedef struct	s_box
@@ -54,13 +54,12 @@ typedef struct	s_box
 	time_t	time_to_sleep;
 	time_t	simul_start;
 	int		min_meal;
-	t_philo	*philos;
+	t_philo	**philos;
 }	t_box;
 
-void	call_philo(t_box *box, int idx, sem_t *sems[4]);
-void	check_if_full(t_box *box);
-void	finish_meal(t_box *box, sem_t *sems[4]);
-void	initiate_semaphores(t_box *box, sem_t *sems[4]);
+void	call_philos(t_box *box, t_sems *sems);
+void	finish_meal(t_box *box, t_sems *sems);
+void	initiate_semaphores(t_box *box, t_sems *sems);
 void	set_table(t_box *box, int argc, char **argv);
 
 /* utils */
@@ -68,5 +67,6 @@ void	exit_with_err(char *str);
 time_t	get_time(void);
 void	print_stat(t_philo *philo, char *str, int if_eats);
 void	set_time(time_t time);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

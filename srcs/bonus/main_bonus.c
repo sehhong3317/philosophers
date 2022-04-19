@@ -12,35 +12,21 @@
 
 #include "philo_bonus.h"
 
-void	call_philos(t_box *box, sem_t *sems[3])
-{
-	int	idx;
-
-	idx = 0;
-	box->simul_start = get_time();
-	while (idx < box->num_of_philo)
-		call_philo(box, idx++, sems);
-	if (box->min_meal > 0)
-		check_if_full(box);
-}
-
-
 int	main(int argc, char **argv)
 {
 	t_box	box;
-	sem_t	*sems[4];
+	t_sems	sems;
 	int		i;
 
 	set_table(&box, argc, argv);	//여기서 malloc
-	initiate_semaphores(&box, sems);
-	call_philos(&box, sems);
-	printf("메인: sem : %p\n", (int *)sems[DEATH]);
-	sem_wait(sems[DEATH]);
+	initiate_semaphores(&box, &sems);
+	call_philos(&box, &sems);	// pthread 및 child prcs 생성
+	sem_wait(sems.sem_death);
 	i = 0;
 	while (i < box.num_of_philo)
 	{
-		printf("다음 pid를 없앤다: %d\n", box.philos[i].pid);
-		kill(box.philos[i++].pid, SIGINT);
+		printf("다음 pid를 없앤다: %d(%d)\n", box.philos[i]->pid, i);
+		kill(box.philos[i++]->pid, SIGINT);
 	}
-	finish_meal(&box, sems);
+	finish_meal(&box, &sems);
 }
