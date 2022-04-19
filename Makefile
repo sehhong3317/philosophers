@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/19 12:57:21 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/19 18:50:48 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,7 @@ OBJS_M 		= $(SRCS_M:.c=.o)
 
 SRCS_B_DIR	= ./srcs/bonus/
 SRCS_B		= $(addprefix $(SRCS_B_DIR), \
-				call_philo_bonus.c \
-				check_if_full_bonus.c \
+				call_philos_bonus.c \
 				main_bonus.c \
 				semaphore_bonus.c \
 				set_table_bonus.c \
@@ -48,7 +47,13 @@ endif
 CC 			= cc
 RM 			= rm -f
 INCLUDE		= -I./includes/
-CFLAGS 	= -Wall -Wextra -Werror
+
+ifdef DEBUG
+	CFLAGS 	= -Wall -Wextra -Werror -g3 -fsanitize=address
+else
+	CFLAGS	= -Wall -Wextra -Werror
+endif
+
 
 all: $(NAME)
 

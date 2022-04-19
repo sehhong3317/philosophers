@@ -46,19 +46,19 @@ static long	ft_atoi(char *str)
 static	void	parse_args(int argc, char **argv, t_box *box)
 {
 	if (argc != 5 && argc != 6)
-		exit_with_err("Invalid number of arguments");
+		exit_with_err("Invalid number of argument");
 	box->num_of_philo = (int)ft_atoi(argv[1]);
 	box->time_to_die = (time_t)ft_atoi(argv[2]);
 	box->time_to_eat = (time_t)ft_atoi(argv[3]);
 	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
 	if (box->num_of_philo <= 0 || box->time_to_die <= 0 || \
 		box->time_to_eat <= -1 || box->time_to_sleep <= -1)
-		exit_with_err("Invalid range of arguments");
+		exit_with_err("Invalid value of argument");
 	if (argc == 6)
 	{
 		box->min_meal = (int)ft_atoi(argv[5]);
 		if (box->min_meal <= 0)
-			exit_with_err("Invalid value for minimum meal");
+			exit_with_err("Invalid value for the minimum number of meal");
 	}
 }
 
@@ -66,7 +66,7 @@ void	set_table(t_box *box, int argc, char **argv)
 {
 	initiate_box(box);
 	parse_args(argc, argv, box);
-	box->philos = malloc(sizeof(t_philo) * box->num_of_philo);
+	box->philos = (t_philo **)ft_calloc(box->num_of_philo, sizeof(t_philo *));
 	if (!box->philos)
-		exit_with_err("malloc() has failed");
+		exit_with_err("Failed to call malloc()");
 }
