@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   call_philos_bonus.c                                :+:      :+:    :+:   */
+/*   call_philo_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/17 17:04:09 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:24:58 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 static	void	do_routine(t_philo *philo)
 {
 	sem_wait(philo->sems[FORK]);
-	print_stat(*philo, "has taken a fork");
+	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", 0);
 	sem_wait(philo->sems[FORK]);
-	print_stat(*philo, "has taken a fork");
-	philo->last_meal = get_time();
-	print_stat(*philo, "is eating");
+	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", 0);
+	print_stat(philo, "\033[32mis eating\033[0m", 1);
 	set_time(philo->box->time_to_eat);
 	sem_post(philo->sems[FORK]);
 	sem_post(philo->sems[FORK]);
-	print_stat(*philo, "is sleeping");
+	print_stat(philo, "\033[1;35mis sleeping\033[0m", 0);
 	set_time(philo->box->time_to_sleep);
-	print_stat(*philo, "is thinking");
+	print_stat(philo, "\033[1;34mis thinking\033[0m", 0);
 }
 
 static	void	*monitor(void *arg)
@@ -34,28 +33,33 @@ static	void	*monitor(void *arg)
 
 	philo = (t_philo *)arg;
 	while ((get_time() - philo->last_meal) < philo->box->time_to_die)
-		;
-	print_stat(*philo, "is died");
-	sem_post(philo->sems[DEATH]);
+		;	
+	sem_wait(philo->sems[PRINT]);
+	printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
+		philo->idx, "\033[31mis died\033[0m");
+	exit(EXIT_SUCCESS);
 	return (NULL);
 }
 
-static	void	call_philo(t_box *box, int idx, sem_t *sems[3])
+void	call_philo(t_box *box, int idx, sem_t *sems[3])
 {
 	t_philo	philo;
+	int		i;
 
 	philo.idx = idx + 1;
 	philo.last_meal = box->simul_start;
+	philo.meal_cnt = 0;
 	philo.box = box;
-	philo.sems[FORK] = sems[FORK];
-	philo.sems[DEATH] = sems[DEATH];
-	philo.sems[PRINT] = sems[PRINT];
+	i = -1;
+	while (++i <= MEAL)
+		philo.sems[i] = sems[i];
 	box->philos[idx] = philo;
 	philo.pid = fork();
 	if (philo.pid < 0)
 		exit_with_err("fork() has failed");
 	else if (!philo.pid)
 	{
+		// printf("나 자식 프로세스 %d의 pid: %d\n", idx + 1, getpid());
 		pthread_create(&(philo.tid), NULL, monitor, &philo);
 		pthread_detach(philo.tid);
 		while (1)
@@ -63,12 +67,5 @@ static	void	call_philo(t_box *box, int idx, sem_t *sems[3])
 	}
 }
 
-void	call_philos(t_box *box, sem_t *sems[3])
-{
-	int	idx;
 
-	idx = 0;
-	box->simul_start = get_time();
-	while (idx < box->num_of_philo)
-		call_philo(box, idx++, sems);
-}
+

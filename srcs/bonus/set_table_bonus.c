@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:03:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/17 15:11:02 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/18 11:21:45 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static	void	parse_args(int argc, char **argv, t_box *box)
 	if (argc == 6)
 	{
 		box->min_meal = (int)ft_atoi(argv[5]);
-		if (box->min_meal < 1)
+		if (box->min_meal <= 0)
 			exit_with_err("Invalid value for minimum meal");
 	}
 }

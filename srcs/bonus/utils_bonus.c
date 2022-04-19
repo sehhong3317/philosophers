@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/17 17:05:10 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/19 14:47:52 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,22 @@ time_t	get_time(void)
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 
-void	print_stat(t_philo philo, char *str)
+void	print_stat(t_philo *philo, char *str, int if_eats)
 {
-	sem_wait(philo.sems[PRINT]);
-	printf("%ld %d %s\n", get_time() - philo.box->simul_start, \
-		philo.idx, str);
-	sem_post(philo.sems[PRINT]);
+	sem_wait(philo->sems[PRINT]);
+	if (if_eats)
+	{
+		philo->last_meal = get_time();
+		philo->meal_cnt++;
+		printf("%ld %d %s\n", philo->last_meal - philo->box->simul_start, \
+		philo->idx, str);
+		if (philo->meal_cnt == philo->box->min_meal)
+			sem_post(philo->sems[MEAL]);
+	}
+	else
+		printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
+			philo->idx, str);
+	sem_post(philo->sems[PRINT]);
 }
 
 void	set_time(time_t time)
