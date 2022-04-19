@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 12:53:33 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/19 15:29:07 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:44:07 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@ static	void	*monitor_if_all_full(void *arg)
 	i = -1;
 	while (++i < box->num_of_philo)
 		sem_wait(box->philos[0].sems[MEAL]);
-	i = -1;
-	while (++i < box->num_of_philo)
-	{	
-		printf("다음 pid를 죽인다: %d\n", box->philos[i].pid);
-		kill(box->philos[i].pid, SIGINT);
-	}
+	sem_post(box->philos[0].sems[DEATH]);
 	return (NULL);
 }
 

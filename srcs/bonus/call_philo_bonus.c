@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/19 15:24:58 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:41:23 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static	void	*monitor(void *arg)
 	sem_wait(philo->sems[PRINT]);
 	printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
 		philo->idx, "\033[31mis died\033[0m");
-	exit(EXIT_SUCCESS);
+	// exit(EXIT_SUCCESS);
+	sem_post(philo->sems[DEATH]);
 	return (NULL);
 }
 
