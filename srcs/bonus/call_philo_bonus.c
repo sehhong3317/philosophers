@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/19 15:41:23 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/19 15:59:58 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static	void	*monitor(void *arg)
 	sem_wait(philo->sems[PRINT]);
 	printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
 		philo->idx, "\033[31mis died\033[0m");
-	// exit(EXIT_SUCCESS);
 	sem_post(philo->sems[DEATH]);
+	// exit(EXIT_SUCCESS);
 	return (NULL);
 }
 
@@ -60,7 +60,6 @@ void	call_philo(t_box *box, int idx, sem_t *sems[3])
 		exit_with_err("fork() has failed");
 	else if (!philo.pid)
 	{
-		// printf("나 자식 프로세스 %d의 pid: %d\n", idx + 1, getpid());
 		pthread_create(&(philo.tid), NULL, monitor, &philo);
 		pthread_detach(philo.tid);
 		while (1)
