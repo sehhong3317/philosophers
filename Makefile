@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/20 11:17:02 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/20 15:37:51 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS_M 		= $(addprefix $(SRCS_M_DIR), \
 				thread_utils.c \
 				time_utils.c \
 				update_philo_status.c \
+				utils.c \
 				)
 OBJS_M 		= $(SRCS_M:.c=.o)
 
@@ -52,7 +53,7 @@ INCLUDE		= -I./includes/
 ifdef DEBUG
 	CFLAGS 	= -Wall -Wextra -Werror -g3 -fsanitize=address
 else
-	CFLAGS	= -Wall -Wextra -Werror
+	CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
 endif
 
 

@@ -14,7 +14,13 @@
 
 void	exit_with_err(char *str)
 {
-	printf("%s\n", str);
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	write(STDERR_FILENO, str, i);
+	write(STDERR_FILENO, "\n", 1);
 	exit(EXIT_FAILURE);
 }
 
