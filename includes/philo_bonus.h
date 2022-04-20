@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/19 15:38:43 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/20 11:17:39 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@
 # include <sys/time.h>
 # include <stdio.h>
 # include <unistd.h>
+
+typedef enum	s_stype
+{
+	FORK = 0,
+	PRINT,
+	MEAL,
+	DEATH
+}	t_stype;
 
 typedef struct	s_sems
 {
@@ -58,12 +66,17 @@ typedef struct	s_box
 }	t_box;
 
 void	call_philos(t_box *box, t_sems *sems);
-void	finish_meal(t_box *box, t_sems *sems);
-void	initiate_semaphores(t_box *box, t_sems *sems);
+void	init_semaphores(t_box *box, t_sems *sems);
 void	set_table(t_box *box, int argc, char **argv);
 
-/* utils */
+/* exit */
+void	finish_meal(t_box *box, t_sems *sems);
 void	exit_with_err(char *str);
+void	exit_after_free(char *str, t_box *box, t_sems *sems);
+void	kill_philos(t_box *box);
+void	exit_after_kill(t_box *box, t_sems *sems);
+
+/* utils */
 time_t	get_time(void);
 void	print_stat(t_philo *philo, char *str, int if_eats);
 void	set_time(time_t time);

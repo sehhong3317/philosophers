@@ -6,24 +6,17 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/19 14:47:52 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/20 11:22:35 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	exit_with_err(char *str)
-{
-	printf("%s\n", str);
-	exit(EXIT_FAILURE);
-}
-
 time_t	get_time(void)
 {
 	struct timeval	curr_time;
 
-	if (gettimeofday(&curr_time, NULL) == -1)
-		exit_with_err("gettimeofday() has failed");
+	gettimeofday(&curr_time, NULL);
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 

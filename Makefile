@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/19 18:50:48 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/20 11:17:02 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ OBJS_M 		= $(SRCS_M:.c=.o)
 SRCS_B_DIR	= ./srcs/bonus/
 SRCS_B		= $(addprefix $(SRCS_B_DIR), \
 				call_philos_bonus.c \
+				exit_bonus.c \
 				main_bonus.c \
 				semaphore_bonus.c \
 				set_table_bonus.c \

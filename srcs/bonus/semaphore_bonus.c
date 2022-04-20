@@ -6,58 +6,54 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 15:13:58 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/19 15:52:22 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/20 11:18:12 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	finish_meal(t_box *box, t_sems *sems)
+static	void	get_sem_info(t_stype type, char **name, int *value, t_box *box)
 {
-	int	i;
-
-	sem_close(sems->sem_fork);
-	sem_close(sems->sem_print);
-	sem_close(sems->sem_meal);
-	sem_close(sems->sem_death);
-	sem_unlink(SEM_FORK_NAME);
-	sem_unlink(SEM_PRINT_NAME);
-	sem_unlink(SEM_MEAL_NAME);
-	sem_unlink(SEM_DEATH_NAME);
-	i = -1;
-	while (++i < box->num_of_philo)
+	if (type == FORK)
 	{
-		if (box->philos[i])
-		{
-			free(box->philos[i]);
-			box->philos[i] = NULL;
-		}
+		*name = SEM_FORK_NAME;
+		*value = box->num_of_philo;
 	}
-	free(box->philos);
-	box->philos = NULL;
-}
-
-static	void	check_sem_open(t_box *box, t_sems *sems, sem_t *sem)
-{
-	if (sem == SEM_FAILED)
+	else if (type == PRINT)
 	{
-		finish_meal(box, sems);
-		exit_with_err("Failed to call sem_open()");
+		*name = SEM_PRINT_NAME;
+		*value = 1;
+	}
+	else if (type == MEAL)
+	{
+		*name = SEM_MEAL_NAME;
+		*value = 0;
+	}
+	if (type == DEATH)
+	{
+		*name = SEM_DEATH_NAME;
+		*value = 0;
 	}
 }
 
-void	initiate_semaphores(t_box *box, t_sems *sems)
+static	sem_t	*ft_sem_open(t_box *box, t_sems *sems, t_stype type)
 {
-	sem_unlink(SEM_FORK_NAME);
-	sems->sem_fork = sem_open(SEM_FORK_NAME, O_CREAT, 0600, box->num_of_philo);
-	check_sem_open(box, sems, sems->sem_fork);
-	sem_unlink(SEM_PRINT_NAME);
-	sems->sem_print = sem_open(SEM_PRINT_NAME, O_CREAT, 0600, 1);
-	check_sem_open(box, sems, sems->sem_print);
-	sem_unlink(SEM_MEAL_NAME);
-	sems->sem_meal = sem_open(SEM_MEAL_NAME, O_CREAT, 0600, 0);
-	check_sem_open(box, sems, sems->sem_meal);
-	sem_unlink(SEM_DEATH_NAME);
-	sems->sem_death = sem_open(SEM_DEATH_NAME, O_CREAT, 0600, 0);
-	check_sem_open(box, sems, sems->sem_death);
+	char	*sem_name;
+	int		init_value;
+	sem_t	*ret;
+
+	get_sem_info(type, &sem_name, &init_value, box);
+	sem_unlink(sem_name);
+	ret = sem_open(sem_name, O_CREAT, 0600, init_value);
+	if (ret == SEM_FAILED)
+		exit_after_free("Failed to call sem_open()", box, sems);
+	return (ret);
+}
+
+void	init_semaphores(t_box *box, t_sems *sems)
+{
+	sems->sem_fork = ft_sem_open(box, sems, FORK);
+	sems->sem_print = ft_sem_open(box, sems, PRINT);
+	sems->sem_meal = ft_sem_open(box, sems, MEAL);
+	sems->sem_death = ft_sem_open(box, sems, DEATH);
 }
