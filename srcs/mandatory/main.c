@@ -3,63 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:34:42 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/10 15:17:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:51:22 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	start_dining_philosophers(t_info *info)
+int	init(t_box *box)
 {
-	int	errno;
+	int	ret;
 
-	errno = initiate_philo_info(info);
-	if (check_error(errno, info, ERR_MALLOC) == -1)
+	// ret = initiate_philo_box(box);
+	// if (check_error(ret, box, ERR_MALLOC) == -1)
+	// 	return (-1);
+	ret = initiate_mutex(box);
+	if (check_error(ret, box, ERR_MUTEX_INIT) == -1)
 		return (-1);
-	errno = initiate_mutex(info);
-	if (check_error(errno, info, ERR_MUTEX_INIT) == -1)
+	ret = create_philosophers(box);
+	if (check_error(ret, box, ERR_THR_CREATE) == -1)
 		return (-1);
-	errno = create_philosophers(info);
-	if (check_error(errno, info, ERR_THR_CREATE) == -1)
+	ret = start_dining(box);
+	if (check_error(ret, box, ERR_TIME) == -1)
 		return (-1);
-	errno = start_dining(info);
-	if (check_error(errno, info, ERR_TIME) == -1)
-		return (-1);
-	update_philo_status(info);
+	update_philo_status(box);
 	return (0);
 }
 
-int	finish_simulation(t_info *info)
+t_err	call_philo(t_box *box, int idx)
 {
-	int	errno;
+	t_philo	*philo;
 
-	errno = wait_philos(info);
-	if (check_error(errno, info, ERR_THR_JOIN) == -1)
+	philo = (t_philo *)ft_calloc(1, sizeof(t_philo));
+	if (!philo)
+		return (ERR_MALLOC);
+	philo->idx = idx + 1;
+	philo->last_meal = box->simul_start;
+	philo->meal_cnt = 0;
+	philo->box = box;
+	if (pthread_mutex_init(&philo->fork, NULL))
+		return (ERR_MUTEX);
+	return (NO_ERR);
+}
+
+t_err	call_philos(t_box *box)
+{
+	int		idx;
+	t_err	ret;
+
+	idx = -1;
+	if (pthread_mutex_init(&box->msg_lock, NULL))
+	{
+		free_philos(box);
+		return (ERR_MUTEX);
+	}
+	box->simul_start = get_time(); //?
+	while (++idx < box->num_of_philo)
+	{	
+		ret = call_philo(box, idx);
+		if (ret)
+		{	
+			free_philos(box);
+			// mutex_destroy(); -> msg_lock, fork모두
+			return (ret);
+		}
+	}
+}
+
+int	finish_simulation(t_box *box)
+{
+	int	ret;
+
+	ret = wait_philos(box);
+	if (check_error(ret, box, ERR_THR_JOIN) == -1)
 		return (-1);
-	errno = destroy_mutex(info);
-	if (check_error(errno, info, ERR_MUTEX_DESTROY) == -1)
+	ret = destroy_mutex(box);
+	if (check_error(ret, box, ERR_MUTEX_DESTROY) == -1)
 		return (-1);
-	free(info->philos);
-	info->philos = NULL;
+	free(box->philos);
+	box->philos = NULL;
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_info	info;
-	int		errno;
+	t_box	box;
+	t_err	ret;
 
-	errno = parse_arguments(argc, argv, &info);
-	if (check_error(errno, &info, ERR_ARG) == -1)
+	ret = set_table(argc, argv, &box);	//여기서 box->philos malloc
+	if (check_err(&box, ret))
+		return (EXIT_FAILURE);
+	ret = call_philos(&box);	//각 philo malloc + mutex_init
+	if (check_err(&box, ret))
+		return (EXIT_FAILURE);
+	ret = finish_simulation(&box);
+	if (ret == -1)
 		return (1);
-	errno = start_dining_philosophers(&info);
-	if (errno == -1)
-		return (1);
-	errno = finish_simulation(&info);
-	if (errno == -1)
-		return (1);
-	return (0);
+	return (EXIT_SUCCESS);
 }

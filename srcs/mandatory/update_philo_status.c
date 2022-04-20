@@ -12,33 +12,33 @@
 
 #include "philo.h"
 
-void	update_philo_status(t_info *info)
+void	update_philo_status(t_box *box)
 {
-	int	(*fptr)(t_info *);
+	int	(*fptr)(t_box *);
 
-	if (info->num_of_meal == -1)
+	if (box->min_meal == -1)
 		fptr = update_philo_status_wo_option;
 	else
 		fptr = update_philo_status_w_option;
 	while (1)
 	{
-		if (fptr(info) == -1)
+		if (fptr(box) == -1)
 			break ;
 	}
 }
 
-int	update_philo_status_wo_option(t_info *info)
+int	update_philo_status_wo_option(t_box *box)
 {
 	int		i;
 	time_t	curr_time_in_ms;
 
 	i = 0;
 	curr_time_in_ms = get_time_in_ms();
-	while (i < info->num_of_philo)
+	while (i < box->num_of_philo)
 	{
-		if (curr_time_in_ms - info->philos[i].last_meal > info->time_to_die)
+		if (curr_time_in_ms - box->philos[i].last_meal > box->time_to_die)
 		{
-			info->dead_philo = i;
+			box->dead_philo = i;
 			return (-1);
 		}
 		i++;
@@ -46,19 +46,19 @@ int	update_philo_status_wo_option(t_info *info)
 	return (0);
 }
 
-int	update_philo_status_w_option(t_info *info)
+int	update_philo_status_w_option(t_box *box)
 {
 	int	i;
 
-	if (update_philo_status_wo_option(info) == -1)
+	if (update_philo_status_wo_option(box) == -1)
 		return (-1);
 	i = 0;
-	while (i < info->num_of_philo)
+	while (i < box->num_of_philo)
 	{
-		if (info->philos[i].meal_count < info->num_of_meal)
+		if (box->philos[i].meal_cnt < box->min_meal)
 			return (0);
 		i++;
 	}
-	info->meal_done = 1;
+	box->meal_done = 1;
 	return (-1);
 }

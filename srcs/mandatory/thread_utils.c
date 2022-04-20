@@ -12,61 +12,61 @@
 
 #include "philo.h"
 
-int	initiate_philo_info(t_info *info)
+int	initiate_philo_box(t_box *box)
 {
 	int	i;
 
-	info->philos = (t_philo *)malloc(sizeof(t_philo) * info->num_of_philo);
-	if (!info->philos)
+	box->philos = (t_philo *)malloc(sizeof(t_philo) * box->num_of_philo);
+	if (!box->philos)
 		return (-1);
-	info->simul_start = 0;
+	box->simul_start = 0;
 	i = 0;
-	while (i < info->num_of_philo)
+	while (i < box->num_of_philo)
 	{
-		info->philos[i].thread_num = i;
-		info->philos[i].info = info;
-		info->philos[i].meal_count = 0;
+		box->philos[i].idx = i;
+		box->philos[i].box = box;
+		box->philos[i].meal_cnt = 0;
 		i++;
 	}
 	return (0);
 }
 
-int	create_philosophers(t_info *info)
+int	create_philosophers(t_box *box)
 {
 	int	i;
 
 	i = 0;
-	while (i < info->num_of_philo)
+	while (i < box->num_of_philo)
 	{
-		if (pthread_create(&info->philos[i].tid, NULL, start_routine, \
-			&info->philos[i]))
+		if (pthread_create(&box->philos[i].tid, NULL, start_routine, \
+			&box->philos[i]))
 			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-int	start_dining(t_info *info)
+int	start_dining(t_box *box)
 {
 	int	i;
 
-	info->simul_start = get_time_in_ms();
-	if (info->simul_start == -1)
+	box->simul_start = get_time_in_ms();
+	if (box->simul_start == -1)
 		return (-1);
 	i = 0;
-	while (i < info->num_of_philo)
-		info->philos[i++].last_meal = info->simul_start;
+	while (i < box->num_of_philo)
+		box->philos[i++].last_meal = box->simul_start;
 	return (0);
 }
 
-int	wait_philos(t_info *info)
+int	wait_philos(t_box *box)
 {
 	int	i;
 
 	i = 0;
-	while (i < info->num_of_philo)
+	while (i < box->num_of_philo)
 	{
-		if (pthread_join(info->philos[i].tid, NULL))
+		if (pthread_join(box->philos[i].tid, NULL))
 			return (-1);
 		i++;
 	}

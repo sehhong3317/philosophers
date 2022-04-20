@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_arguments.c                                  :+:      :+:    :+:   */
+/*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/10 15:17:27 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/20 17:33:11 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,35 @@ static long	ft_atoi(char *str)
 	return ((long)nbr);
 }
 
-static void	initiate_info(t_info *info)
+static	void	fill_up_box(t_box *box, char **argv)
 {
-	info->dead_philo = -1;
-	info->death_msg = 0;
-	info->meal_done = 0;
-	info->num_of_meal = -1;
+	box->min_meal = 0;
+	box->simul_start = 0;
+	box->dead_philo = -1;
+	box->death_msg = 0;
+	box->meal_done = 0;
+	box->philos = (t_philo **)ft_calloc(box->num_of_philo, sizeof(t_philo *));
+	box->num_of_philo = (int)ft_atoi(argv[1]);
+	box->time_to_die = (time_t)ft_atoi(argv[2]);
+	box->time_to_eat = (time_t)ft_atoi(argv[3]);
+	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
 }
 
-int	parse_arguments(int argc, char **argv, t_info *info)
+t_err	set_table(int argc, char **argv, t_box *box)
 {
 	if (argc != 5 && argc != 6)
-		return (-1);
-	initiate_info(info);
-	info->num_of_philo = (int)ft_atoi(argv[1]);
-	info->time_to_die = (time_t)ft_atoi(argv[2]);
-	info->time_to_eat = (time_t)ft_atoi(argv[3]);
-	info->time_to_sleep = (time_t)ft_atoi(argv[4]);
+		return (ERR_ARG);
+	fill_up_box(box, argv);
+	if (!box->philos)
+		return (ERR_MALLOC);
+	if (box->num_of_philo < 1 || box->time_to_die <= 0 \
+		|| box->time_to_eat < 0 || box->time_to_sleep < 0)
+		return (ERR_ARG);
 	if (argc == 6)
 	{	
-		info->num_of_meal = (int)ft_atoi(argv[5]);
-		if (info->num_of_meal < 1)
-			return (-1);
+		box->min_meal = (int)ft_atoi(argv[5]);
+		if (box->min_meal <= 0)
+			return (ERR_ARG);
 	}
-	if (info->num_of_philo < 1 || info->time_to_die <= 0 \
-		|| info->time_to_eat < 0 || info->time_to_sleep < 0)
-		return (-1);
-	return (0);
+	return (NO_ERR);
 }
