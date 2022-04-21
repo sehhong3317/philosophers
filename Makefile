@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/20 15:37:51 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/21 20:28:49 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,16 +14,14 @@ NAME = philo
 
 SRCS_M_DIR 	= ./srcs/mandatory/
 SRCS_M 		= $(addprefix $(SRCS_M_DIR), \
+				call_philos.c \
 				check_error.c \
+				do_routine.c \
 				main.c \
-				mutex_utils.c \
-				parse_arguments.c \
-				print_msg.c \
-				routine_of_philosophers.c \
-				start_routine.c \
-				thread_utils.c \
-				time_utils.c \
-				update_philo_status.c \
+				rm_table.c \
+				routine.c \
+				run_simulation.c \
+				set_table.c \
 				utils.c \
 				)
 OBJS_M 		= $(SRCS_M:.c=.o)
@@ -38,7 +36,6 @@ SRCS_B		= $(addprefix $(SRCS_B_DIR), \
 				utils_bonus.c \
 				)
 OBJS_B		= $(SRCS_B:.c=.o)
-
 
 ifdef WITH_BONUS
 	OBJS 	= $(OBJS_B)

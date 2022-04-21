@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 14:10:51 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:12:00 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ time_t	get_time(void)
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 
-int	set_time(time_t time, t_box *box)
+int	set_time(t_box *box, time_t time)
 {
 	time_t	target_time;
 
@@ -45,18 +45,8 @@ int	set_time(time_t time, t_box *box)
 	return (0);
 }
 
-void	print_stat(t_philo *philo, t_act action)
+void	print_stat(t_philo *philo, char *stat, t_act action)
 {
-	char	*stat;
-	
-	if (action == FORK1 || action == FORK2)
-		stat = "has taken a fork";
-	else if (action == EAT)
-		stat = "is eating";
-	else if (action == SLEEP)
-		stat == "is sleeping";
-	else
-		stat == "is thinking";
 	pthread_mutex_lock(&(philo->box->msg_lock));
 	if (action == EAT)
 	{
@@ -98,26 +88,27 @@ void	print_stat(t_philo *philo, t_act action)
 // 	return (0);
 // }
 
-int	interval_usleep_w_option(time_t interval, t_philo *philo, int mode, \
-	int th_num)
-{
-	time_t	target_time;
+// TODO 밥 먹을때 업데이트
+// int	interval_usleep_w_option(time_t interval, t_philo *philo, int mode, \
+// 	int th_num)
+// {
+// 	time_t	target_time;
 
-	target_time = get_time_in_ms() + interval;
-	while (get_time_in_ms() < target_time)
-	{
-		usleep(100);
-		if (philo->box->dead_philo >= 0)
-		{
-			unlock_mutexes(mode, philo->box, th_num);
-			print_philo_death(philo->box);
-			return (-1);
-		}
-		if (philo->box->meal_done == 1)
-		{
-			unlock_mutexes(mode, philo->box, th_num);
-			return (-1);
-		}
-	}
-	return (0);
-}
+// 	target_time = get_time_in_ms() + interval;
+// 	while (get_time_in_ms() < target_time)
+// 	{
+// 		usleep(100);
+// 		if (philo->box->dead_philo >= 0)
+// 		{
+// 			unlock_mutexes(mode, philo->box, th_num);
+// 			print_philo_death(philo->box);
+// 			return (-1);
+// 		}
+// 		if (philo->box->meal_done == 1)
+// 		{
+// 			unlock_mutexes(mode, philo->box, th_num);
+// 			return (-1);
+// 		}
+// 	}
+// 	return (0);
+// }

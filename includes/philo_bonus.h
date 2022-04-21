@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/20 11:17:39 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 21:27:33 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <stdio.h>
 # include <unistd.h>
 
-typedef enum	s_stype
+typedef enum s_stype
 {
 	FORK = 0,
 	PRINT,
@@ -35,7 +35,7 @@ typedef enum	s_stype
 	DEATH
 }	t_stype;
 
-typedef struct	s_sems
+typedef struct s_sems
 {
 	sem_t	*sem_fork;
 	sem_t	*sem_print;
@@ -43,7 +43,7 @@ typedef struct	s_sems
 	sem_t	*sem_meal;
 }	t_sems;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				idx;
 	pid_t			pid;
@@ -54,7 +54,7 @@ typedef struct	s_philo
 	t_sems			*sems;
 }	t_philo;
 
-typedef struct	s_box
+typedef struct s_box
 {
 	int		num_of_philo;
 	time_t	time_to_die;

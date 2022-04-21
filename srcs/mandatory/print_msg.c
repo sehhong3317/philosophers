@@ -6,23 +6,23 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 22:41:30 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 14:11:42 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:00:56 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_philo_death(t_box *box)
-{
-	pthread_mutex_lock(&box->msg_lock);
-	if (!box->death_msg)
-	{
-		printf("%ldms %d died\n", get_time_in_ms() - \
-			box->simul_start, box->dead_philo + 1);
-		box->death_msg = 1;
-	}
-	pthread_mutex_unlock(&box->msg_lock);
-}
+// void	print_philo_death(t_box *box)
+// {
+// 	pthread_mutex_lock(&box->msg_lock);
+// 	if (!box->death_msg)
+// 	{
+// 		printf("%ldms %d died\n", get_time_in_ms() - \
+// 			box->simul_start, box->dead_philo + 1);
+// 		box->death_msg = 1;
+// 	}
+// 	pthread_mutex_unlock(&box->msg_lock);
+// }
 
 // void	print_action(int mode, t_box *box, int th_num)
 // {

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 15:50:17 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 15:37:15 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 20:04:55 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,23 @@
 // 	return (0);
 // }
 
-int	check_vitality_w_option(int mode, t_box *box, int th_num)
-{
-	if (box->dead_philo >= 0)
-	{
-		unlock_mutexes(mode, box, th_num);
-		print_philo_death(box);
-		return (-1);
-	}
-	if (box->meal_done)
-	{
-		unlock_mutexes(mode, box, th_num);
-		return (-1);
-	}
-	print_action(mode, box, th_num);
-	return (0);
-}
+// TODO 밥먹을때 업데이트
+// int	check_vitality_w_option(int mode, t_box *box, int th_num)
+// {
+// 	if (box->dead_philo >= 0)
+// 	{
+// 		unlock_mutexes(mode, box, th_num);
+// 		print_philo_death(box);
+// 		return (-1);
+// 	}
+// 	if (box->meal_done)
+// 	{
+// 		unlock_mutexes(mode, box, th_num);
+// 		return (-1);
+// 	}
+// 	print_action(mode, box, th_num);
+// 	return (0);
+// }
 
 // static void	set_function_ptrs(t_box *box)
 // {
