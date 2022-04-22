@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 10:14:50 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:15:44 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,51 @@
 	죽었으면 이 thread를 여기서 끝내야함.
 */
 
+static	int	check_stat_wo_opt(t_philo *philo)
+{
+	if (philo->box->dead_philo >= 0)
+		return (1);
+	return (0);
+}
+
+static	int	check_stat_w_opt(t_philo *philo)
+{
+	if (philo->box->dead_philo >= 0)
+		return (1);
+	if (!philo->box->meal_done)
+		return (1);
+	return (0);
+}
+
+static	int	(*how_to_check_stat(int min_meal))(t_philo *)
+{
+	if (min_meal > 0)
+		return (check_stat_w_opt);
+	return (check_stat_wo_opt);
+}
+
 void	*do_routine(void *arg)
 {
 	t_philo	*philo;
 	int		ret;
+	int		(*check_stat)(t_philo *philo);
 
 	ret = 0;
 	philo = (t_philo *)arg;
+	check_stat = how_to_check_stat(philo->box->min_meal);
 	while (!philo->last_meal)
 		;
 	if (hold_even_philos(philo) == -1)
 		return (NULL);
 	while (1)
 	{
-		ret = eats_with_forks(philo);
+		ret = eats_with_forks(philo, check_stat);
 		if (ret < 0)
 			break ;
-		ret = sleeps(philo);
+		ret = sleeps(philo, check_stat);
 		if (ret < 0)
 			break ;
-		ret = thinks(philo);
+		ret = thinks(philo, check_stat);
 		if (ret < 0)
 			break ;
 	}

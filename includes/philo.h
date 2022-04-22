@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:26:57 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:14:15 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef struct s_box
 	pthread_mutex_t		*forks;
 	t_philo				**philos;
 }				t_box;
-// int					(*fptr)(int, struct s_box *, int);
-// int					(*fptr2)(time_t, t_philo *, int, int);
 
 /* call_philos */
 t_err	call_philos(t_box *box);
@@ -85,9 +83,9 @@ void	rm_table(t_box *box);
 
 /* routine */
 int		hold_even_philos(t_philo *philo);
-int		eats_with_forks(t_philo *philo);
-int		sleeps(t_philo *philo);
-int		thinks(t_philo *philo);
+int		eats_with_forks(t_philo *philo, int (*check_stat)(t_philo *));
+int		sleeps(t_philo *philo, int (*check_stat)(t_philo *));
+int		thinks(t_philo *philo, int (*check_stat)(t_philo *));
 
 /* run_simuation */
 void	run_simulation(t_box *box);

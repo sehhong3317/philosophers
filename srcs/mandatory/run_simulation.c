@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:23:14 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 10:44:09 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	run_simulation(t_box *box)
 	while (1)
 	{
 		if (if_all_alive(box) == -1)
+			return ;
+		if (box->min_meal > 0 && !box->meal_done)
 			return ;
 	}
 	idx = 0;
