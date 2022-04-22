@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 10:22:53 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:59:28 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,30 @@ static long	ft_atoi(char *str)
 	return ((long)nbr);
 }
 
-static	void	fill_up_box(t_box *box, char **argv)
+static	t_err	fill_up_box(t_box *box, char **argv)
 {
 	box->dead_philo = -1;
 	box->num_of_philo = (int)ft_atoi(argv[1]);
 	box->time_to_die = (time_t)ft_atoi(argv[2]);
 	box->time_to_eat = (time_t)ft_atoi(argv[3]);
 	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
+	if (box->num_of_philo < 1 || box->time_to_die <= 0 \
+		|| box->time_to_eat < 0 || box->time_to_sleep < 0)
+		return (ERR_ARG);
+	if (box->min_meal > 0)
+		box->meal_done = box->num_of_philo;
+	box->philos = (t_philo **)ft_calloc(box->num_of_philo, sizeof(t_philo *));
+	box->forks = (pthread_mutex_t *)ft_calloc(box->num_of_philo, \
+		sizeof(pthread_mutex_t));
+	if (!box->philos || !box->forks)
+		return (ERR_MALLOC);
+	return (NO_ERR);
 }
 
 t_err	set_table(int argc, char **argv, t_box *box)
 {
+	t_err	ret;
+
 	if (argc != 5 && argc != 6)
 		return (ERR_ARG);
 	memset(box, 0, sizeof(t_box));
@@ -54,22 +67,11 @@ t_err	set_table(int argc, char **argv, t_box *box)
 		if (box->min_meal <= 0)
 			return (ERR_ARG);
 	}
-	fill_up_box(box, argv);
-	if (box->num_of_philo < 1 || box->time_to_die <= 0 \
-		|| box->time_to_eat < 0 || box->time_to_sleep < 0)
-	{	
-		free_philos(box, 0);
-		return (ERR_ARG);
-	}
-	if (box->min_meal > 0)
-		box->meal_done = box->num_of_philo;
-	box->philos = (t_philo **)ft_calloc(box->num_of_philo, sizeof(t_philo *));
-	box->forks = (pthread_mutex_t *)ft_calloc(box->num_of_philo, \
-		sizeof(pthread_mutex_t));
-	if (!box->philos || !box->forks)
+	ret = fill_up_box(box, argv);
+	if (ret != NO_ERR)
 	{
 		free_philos(box, 0);
-		return (ERR_MALLOC);
+		return (ret);
 	}
 	return (NO_ERR);
 }

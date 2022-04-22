@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 11:15:44 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 12:01:58 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,21 @@ static	int	check_stat_w_opt(t_philo *philo)
 	return (0);
 }
 
-static	int	(*how_to_check_stat(int min_meal))(t_philo *)
+static	int	(*how_to_check_stat(int min_meal))(t_philo *philo)
 {
 	if (min_meal > 0)
 		return (check_stat_w_opt);
 	return (check_stat_wo_opt);
+}
+
+static	void	unlock_mutex_if_err(t_philo *philo, int ret)
+{
+	if (ret <= -2)
+	{
+		if (ret == -3)
+			pthread_mutex_unlock(philo->fork2);
+		pthread_mutex_unlock(philo->fork1);
+	}
 }
 
 void	*do_routine(void *arg)
@@ -67,11 +77,6 @@ void	*do_routine(void *arg)
 		if (ret < 0)
 			break ;
 	}
-	if (ret <= -2)
-	{
-		if (ret == -3)
-			pthread_mutex_unlock(philo->fork2);
-		pthread_mutex_unlock(philo->fork1);
-	}
+	unlock_mutex_if_err(philo, ret);
 	return (NULL);
 }

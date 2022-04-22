@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:31:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 12:29:34 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ static	int	init_mutexes(t_box *box)
 	return (0);
 }
 
+// TODO 좀 더 생각해보자.
+static	t_err	rm_table_if_err(t_box *box, int idx, t_err ret)
+{
+	detach_philos(box, idx);
+	destroy_mutexes(box);
+	if (ret == ERR_THD_CREAT)
+		idx++;
+	free_philos(box, idx);
+	return (ret);
+}
+
 t_err	call_philos(t_box *box)
 {
 	int		idx;
@@ -74,14 +85,6 @@ t_err	call_philos(t_box *box)
 		idx++;
 	}
 	if (ret != NO_ERR)
-	{
-		// TODO 좀 더 생각해보자.
-		detach_philos(box, idx);
-		destroy_mutexes(box);
-		if (ret == ERR_THD_CREAT)
-			idx++;
-		free_philos(box, idx);
-		return (ret);
-	}
+		return (rm_table_if_err(box, idx, ret));
 	return (NO_ERR);
 }

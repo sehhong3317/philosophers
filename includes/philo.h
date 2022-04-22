@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 11:14:15 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 11:23:09 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	*do_routine(void *arg);
 void	detach_philos(t_box *box, int idx);
 void	destroy_mutexes(t_box *box);
 void	free_philos(t_box *box, int idx);
-void	rm_table(t_box *box);
 
 /* routine */
 int		hold_even_philos(t_philo *philo);
