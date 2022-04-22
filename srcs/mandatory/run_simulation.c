@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:36:13 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 18:03:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static	int	if_all_alive(t_box *box)
 				pthread_mutex_lock(&(box->msg_lock));
 				box->dead_philo = i;
 				printf("%ld %d %s\n", curr_time - box->simul_start, \
-					box->dead_philo + 1, "\033[31mis died\033[0m");
+					box->dead_philo + 1, "\033[1;31mis died\033[0m");
 			}
 			return (-1);
 		}
@@ -54,7 +54,7 @@ void	run_simulation(t_box *box)
 			return ;
 	}
 	idx = 0;
-	if (box->dead_philo >= 0 || !box->meal_done)
+	if (box->dead_philo >= 0 || (box->min_meal > 0 && !box->meal_done))
 		pthread_mutex_unlock(&(box->msg_lock));
 	while (idx < box->num_of_philo)
 		pthread_join(box->philos[idx++]->tid, NULL);

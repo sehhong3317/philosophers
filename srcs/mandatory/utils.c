@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:31:54 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 18:22:38 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	print_stat(t_philo *philo, char *stat, t_act action)
 	else
 		printf("%ld %d %s\n", get_time() - box->simul_start, \
 			(philo->idx) + 1, stat);
-	if (!(box->min_meal > 0 && !box->meal_done))
+	if (box->min_meal == 0 || box->meal_done)
 		pthread_mutex_unlock(&(box->msg_lock));
 }

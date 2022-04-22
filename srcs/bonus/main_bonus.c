@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:16:32 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/20 11:09:54 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:52:06 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	call_philos(&box, &sems);
 	sem_wait(sems.sem_death);
 	i = 0;
-	//kill_philos(&box);
 	while (i < box.num_of_philo)
 	{
 		printf("다음 pid를 없앤다: %d(%d)\n", box.philos[i]->pid, i);

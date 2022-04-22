@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:09:29 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:56:00 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ static	int	check_stat_w_opt(t_box *box)
 	if (box->dead_philo >= 0)
 		return (1);
 	if (!box->meal_done)
-	{
-		pthread_mutex_lock(&(box->msg_lock));
 		return (1);
-	}
+
 	return (0);
 }
 

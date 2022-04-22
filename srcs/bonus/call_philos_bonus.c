@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_philos_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 22:02:08 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:49:42 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static	void	do_routine(t_philo *philo)
 {
 	sem_wait(philo->sems->sem_fork);
-	print_stat(philo, "\033[32mhas taken a fork\033[0m", 0);
+	print_stat(philo, "\033[33mhas taken a fork\033[0m", 0);
 	sem_wait(philo->sems->sem_fork);
-	print_stat(philo, "\033[32mhas taken a fork\033[0m", 0);
+	print_stat(philo, "\033[33mhas taken a fork\033[0m", 0);
 	print_stat(philo, "\033[1;32mis eating\033[0m", 1);
 	set_time(philo->box->time_to_eat);
 	sem_post(philo->sems->sem_fork);
 	sem_post(philo->sems->sem_fork);
-	print_stat(philo, "\033[1;35mis sleeping\033[0m", 0);
+	print_stat(philo, "\033[35mis sleeping\033[0m", 0);
 	set_time(philo->box->time_to_sleep);
-	print_stat(philo, "\033[1;34mis thinking\033[0m", 0);
+	print_stat(philo, "\033[34mis thinking\033[0m", 0);
 }
 
 static	void	*monitor(void *arg)
@@ -36,7 +36,7 @@ static	void	*monitor(void *arg)
 		;
 	sem_wait(philo->sems->sem_print);
 	printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
-		philo->idx, "\033[31mis died\033[0m");
+		philo->idx, "\033[1;31mis died\033[0m");
 	sem_post(philo->sems->sem_death);
 	return (NULL);
 }
