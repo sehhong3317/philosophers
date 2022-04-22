@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:34:53 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 10:22:53 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_err	set_table(int argc, char **argv, t_box *box)
 		free_philos(box, 0);
 		return (ERR_ARG);
 	}
+	if (box->min_meal > 0)
+		box->meal_done = box->num_of_philo;
 	box->philos = (t_philo **)ft_calloc(box->num_of_philo, sizeof(t_philo *));
 	box->forks = (pthread_mutex_t *)ft_calloc(box->num_of_philo, \
 		sizeof(pthread_mutex_t));

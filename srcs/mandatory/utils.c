@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 20:12:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 10:24:23 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,26 @@ int	set_time(t_box *box, time_t time)
 
 void	print_stat(t_philo *philo, char *stat, t_act action)
 {
-	pthread_mutex_lock(&(philo->box->msg_lock));
+	t_box *box;
+	
+	box = philo->box;
+	pthread_mutex_lock(&(box->msg_lock));
 	if (action == EAT)
 	{
 		philo->last_meal = get_time();
 		philo->meal_cnt++;
-		printf("%ld %d %s\n", philo->last_meal - philo->box->simul_start, \
+		printf("%ld %d %s\n", philo->last_meal - box->simul_start, \
 			(philo->idx) + 1, stat);
+		if (box->min_meal > 0 && philo->meal_cnt == box->min_meal)
+		{	
+			box->meal_done--;
+			printf("satisfied meal plan(%d)\n", philo->idx + 1);
+		}
 	}
 	else
-		printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
+		printf("%ld %d %s\n", get_time() - box->simul_start, \
 			(philo->idx) + 1, stat);
-	pthread_mutex_unlock(&(philo->box->msg_lock));
+	pthread_mutex_unlock(&(box->msg_lock));
 }
 
 // time_t	get_meal_time(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:12:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:34:32 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 10:14:38 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ int	hold_even_philos(t_philo *philo)
 // idx에는 philo->idx가 들어감 (0부터 시작함)
 int	eats_with_forks(t_philo *philo)
 {
-	if (philo->box->dead_philo > 0)
+	if (philo->box->dead_philo >= 0)
 		return (-1);
 	pthread_mutex_lock(philo->fork1);
 	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", FORK1);
-	if (philo->box->dead_philo > 0)
+	if (philo->box->dead_philo >= 0)
 		return (-2);
 	pthread_mutex_lock(philo->fork2);
 	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", FORK2);
-	if (philo->box->dead_philo > 0)
+	if (philo->box->dead_philo >= 0)
 		return (-3);
 	print_stat(philo, "\033[32mis eating\033[0m", EAT);
 	if (set_time(philo->box, philo->box->time_to_eat) == -1)
@@ -65,7 +65,7 @@ int	eats_with_forks(t_philo *philo)
 
 int	sleeps(t_philo *philo)
 {
-	if (philo->box->dead_philo > 0)
+	if (philo->box->dead_philo >= 0)
 		return (-1);
 	print_stat(philo, "\033[1;35mis sleeping\033[0m", SLEEP);
 	if (set_time(philo->box, philo->box->time_to_sleep) == -1)
@@ -75,7 +75,7 @@ int	sleeps(t_philo *philo)
 
 int	thinks(t_philo *philo)
 {
-	if (philo->box->dead_philo > 0)
+	if (philo->box->dead_philo >= 0)
 		return (-1);
 	print_stat(philo, "\033[1;34mis thinking\033[0m", THINK);
 	return (0);

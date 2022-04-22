@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 20:10:54 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 10:14:50 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,3 @@ void	*do_routine(void *arg)
 	}
 	return (NULL);
 }
-
-// void	do_routine_w_meal()
-// {
-
-// }
