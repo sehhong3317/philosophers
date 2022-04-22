@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 12:59:06 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 16:19:44 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	free_philos(t_box *box, int idx);
 
 /* routine */
 int		hold_even_philos(t_philo *philo);
-int		eats_with_forks(t_philo *philo, int (*check_stat)(t_philo *));
-int		sleeps(t_philo *philo, int (*check_stat)(t_philo *));
-int		thinks(t_philo *philo, int (*check_stat)(t_philo *));
+int		eats_with_forks(t_philo *philo, int (*check_stat)(t_box *));
+int		sleeps(t_philo *philo, int (*check_stat)(t_box *));
+int		thinks(t_philo *philo, int (*check_stat)(t_box *));
 
 /* run_simuation */
 void	run_simulation(t_box *box);

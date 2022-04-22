@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 12:54:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:31:54 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	set_time(t_box *box, time_t time)
 void	print_stat(t_philo *philo, char *stat, t_act action)
 {
 	t_box	*box;
+
 	box = philo->box;
 	pthread_mutex_lock(&(box->msg_lock));
 	if (action == EAT)
@@ -65,5 +66,6 @@ void	print_stat(t_philo *philo, char *stat, t_act action)
 	else
 		printf("%ld %d %s\n", get_time() - box->simul_start, \
 			(philo->idx) + 1, stat);
-	pthread_mutex_unlock(&(box->msg_lock));
+	if (!(box->min_meal > 0 && !box->meal_done))
+		pthread_mutex_unlock(&(box->msg_lock));
 }

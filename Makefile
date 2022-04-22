@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/21 20:28:49 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/22 17:12:23 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,12 +46,7 @@ endif
 CC 			= cc
 RM 			= rm -f
 INCLUDE		= -I./includes/
-
-ifdef DEBUG
-	CFLAGS 	= -Wall -Wextra -Werror -g3 -fsanitize=address
-else
-	CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
-endif
+CFLAGS 		= -Wall -Wextra -Werror
 
 
 all: $(NAME)

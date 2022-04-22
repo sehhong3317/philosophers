@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 12:58:19 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:09:29 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,26 @@
 	죽었으면 이 thread를 여기서 끝내야함.
 */
 
-static	int	check_stat_wo_opt(t_philo *philo)
+static	int	check_stat_wo_opt(t_box *box)
 {
-	if (philo->box->dead_philo >= 0)
+	if (box->dead_philo >= 0)
 		return (1);
 	return (0);
 }
 
-static	int	check_stat_w_opt(t_philo *philo)
+static	int	check_stat_w_opt(t_box *box)
 {
-	if (philo->box->dead_philo >= 0)
+	if (box->dead_philo >= 0)
 		return (1);
-	if (!philo->box->meal_done)
+	if (!box->meal_done)
+	{
+		pthread_mutex_lock(&(box->msg_lock));
 		return (1);
+	}
 	return (0);
 }
 
-static	int	(*how_to_check_stat(int min_meal))(t_philo *philo)
+static	int	(*how_to_check_stat(int min_meal))(t_box *box)
 {
 	if (min_meal > 0)
 		return (check_stat_w_opt);
@@ -56,7 +59,7 @@ void	*do_routine(void *arg)
 {
 	t_philo	*philo;
 	int		ret;
-	int		(*check_stat)(t_philo *philo);
+	int		(*check_stat)(t_box *box);
 
 	ret = 0;
 	philo = (t_philo *)arg;
