@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:34:53 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 22:35:06 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_err	set_table(int argc, char **argv, t_box *box)
 		box->min_meal = (int)ft_atoi(argv[5]);
 		if (box->min_meal <= 0)
 			return (ERR_ARG);
+		box->meal_done = box->min_meal;
 	}
 	fill_up_box(box, argv);
 	if (box->num_of_philo < 1 || box->time_to_die <= 0 \

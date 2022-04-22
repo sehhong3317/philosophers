@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/20 11:28:23 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 22:02:08 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static	void	do_routine(t_philo *philo)
 {
 	sem_wait(philo->sems->sem_fork);
-	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", 0);
+	print_stat(philo, "\033[32mhas taken a fork\033[0m", 0);
 	sem_wait(philo->sems->sem_fork);
-	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", 0);
-	print_stat(philo, "\033[32mis eating\033[0m", 1);
+	print_stat(philo, "\033[32mhas taken a fork\033[0m", 0);
+	print_stat(philo, "\033[1;32mis eating\033[0m", 1);
 	set_time(philo->box->time_to_eat);
 	sem_post(philo->sems->sem_fork);
 	sem_post(philo->sems->sem_fork);
@@ -50,7 +50,6 @@ static	void	call_philo(t_box *box, int idx, t_sems *sems)
 		exit_after_free("Failed to call malloc()", box, sems);
 	philo->idx = idx + 1;
 	philo->last_meal = box->simul_start;
-	philo->meal_cnt = 0;
 	philo->box = box;
 	philo->sems = sems;
 	box->philos[idx] = philo;

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:23:14 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 09:25:18 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static	int	if_all_alive(t_box *box)
 	{
 		if (curr_time - box->philos[i]->last_meal > box->time_to_die)
 		{
-			// 여기서 바로 msg_lock 걸고 죽음메세지 내고 끝내는 게 낫지않음?
 			if (box->dead_philo == -1)
 			{
 				pthread_mutex_lock(&(box->msg_lock));
@@ -51,6 +50,8 @@ void	run_simulation(t_box *box)
 	while (1)
 	{
 		if (if_all_alive(box) == -1)
+			return ;
+		if (box->min_meal > 0 && !box->meal_done)
 			return ;
 	}
 	idx = 0;

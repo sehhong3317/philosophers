@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:31:40 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/21 22:01:40 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static	t_err	call_philo(t_box *box, int idx)
 	if (!philo)
 		return (ERR_MALLOC);
 	philo->idx = idx;
-	philo->last_meal = 0;
-	philo->meal_cnt = 0;
 	philo->box = box;
 	box->philos[idx] = philo;
 	philo->fork1 = &(box->forks[idx]);
@@ -53,6 +51,17 @@ static	int	init_mutexes(t_box *box)
 	return (0);
 }
 
+// TODO 좀 더 생각해보자.
+static	t_err	fail_to_call_philos(t_box *box, int idx, t_err ret)
+{
+	detach_philos(box, idx);
+	destroy_mutexes(box);
+	if (ret == ERR_THD_CREAT)
+		idx++;
+	free_philos(box, idx);
+	return (ret);
+}
+
 t_err	call_philos(t_box *box)
 {
 	int		idx;
@@ -74,14 +83,6 @@ t_err	call_philos(t_box *box)
 		idx++;
 	}
 	if (ret != NO_ERR)
-	{
-		// TODO 좀 더 생각해보자.
-		detach_philos(box, idx);
-		destroy_mutexes(box);
-		if (ret == ERR_THD_CREAT)
-			idx++;
-		free_philos(box, idx);
-		return (ret);
-	}
+		return (fail_to_call_philos(box, idx, ret));
 	return (NO_ERR);
 }
