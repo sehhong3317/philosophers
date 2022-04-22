@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 11:27:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 12:54:40 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	set_time(t_box *box, time_t time)
 	while (get_time() < target_time)
 	{
 		usleep(100);
-		if (box->dead_philo > 0)
+		if (box->dead_philo >= 0)
 			return (-1);
 	}
 	return (0);
@@ -48,7 +48,6 @@ int	set_time(t_box *box, time_t time)
 void	print_stat(t_philo *philo, char *stat, t_act action)
 {
 	t_box	*box;
-
 	box = philo->box;
 	pthread_mutex_lock(&(box->msg_lock));
 	if (action == EAT)

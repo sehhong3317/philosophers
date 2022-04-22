@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 16:12:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 11:24:39 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 12:56:38 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	eats_with_forks(t_philo *philo, int (*check_stat)(t_philo *))
 	print_stat(philo, "\033[1;32mhas taken a fork\033[0m", FORK2);
 	if (check_stat(philo) > 0)
 		return (-3);
-	print_stat(philo, "\033[32mis eating\033[0m", EAT);
+	print_stat(philo, "\033[1;32mis eating\033[0m", EAT);
 	if (set_time(philo->box, philo->box->time_to_eat) == -1)
 		return (-3);
 	pthread_mutex_unlock(philo->fork1);

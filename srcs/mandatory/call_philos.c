@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 12:29:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/22 12:57:08 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static	t_err	call_philo(t_box *box, int idx)
 	if (!philo)
 		return (ERR_MALLOC);
 	philo->idx = idx;
-	philo->last_meal = 0;
-	philo->meal_cnt = 0;
 	philo->box = box;
 	box->philos[idx] = philo;
 	philo->fork1 = &(box->forks[idx]);
