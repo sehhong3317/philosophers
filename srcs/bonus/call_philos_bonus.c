@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   call_philos_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:49:42 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 12:09:39 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static	void	*monitor(void *arg)
 		;
 	sem_wait(philo->sems->sem_print);
 	printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
-		philo->idx, "\033[1;31mis died\033[0m");
+		philo->idx, "\033[1;31m died\033[0m");
 	sem_post(philo->sems->sem_death);
 	return (NULL);
 }

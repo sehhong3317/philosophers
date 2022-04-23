@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/22 17:56:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 10:06:11 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static	int	check_stat_w_opt(t_box *box)
 		return (1);
 	if (!box->meal_done)
 		return (1);
-
 	return (0);
 }
 
