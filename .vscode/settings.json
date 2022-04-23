@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "chrono": "c",
-        "ctime": "c",
-        "stdio.h": "c",
-        "philo.h": "c"
-    }
-}
