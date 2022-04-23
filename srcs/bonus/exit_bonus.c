@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 10:26:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/20 11:27:45 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:57:21 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	finish_meal(t_box *box, t_sems *sems)
 
 void	exit_after_free(char *str, t_box *box, t_sems *sems)
 {
+	if (box->min_meal > 0)
+		kill(box->pid_for_full, SIGINT);
 	finish_meal(box, sems);
 	exit_with_err(str);
 }
@@ -75,6 +77,8 @@ void	kill_philos(t_box *box)
 
 void	exit_after_kill(t_box *box, t_sems *sems)
 {
+	if (box->min_meal > 0)
+		kill(box->pid_for_full, SIGINT);
 	kill_philos(box);
 	finish_meal(box, sems);
 	exit_with_err("Failed to create thread");
