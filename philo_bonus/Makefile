@@ -3,31 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+         #
+#    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/22 18:36:04 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/23 18:00:08 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 
-SRCS_M_DIR 	= ./srcs/mandatory/
-SRCS_M 		= $(addprefix $(SRCS_M_DIR), \
-				call_philos.c \
-				check_error.c \
-				do_routine.c \
-				main.c \
-				rm_table.c \
-				routine.c \
-				run_simulation.c \
-				set_table.c \
-				utils.c \
-				)
-OBJS_M 		= $(SRCS_M:.c=.o)
-
-SRCS_B_DIR	= ./srcs/bonus/
-SRCS_B		= $(addprefix $(SRCS_B_DIR), \
+SRCS_DIR	= ./
+SRCS		= $(addprefix $(SRCS_DIR), \
 				call_philos_bonus.c \
 				exit_bonus.c \
 				main_bonus.c \
@@ -35,33 +21,22 @@ SRCS_B		= $(addprefix $(SRCS_B_DIR), \
 				set_table_bonus.c \
 				utils_bonus.c \
 				)
-OBJS_B		= $(SRCS_B:.c=.o)
-
-ifdef WITH_BONUS
-	OBJS 	= $(OBJS_B)
-else
-	OBJS 	= $(OBJS_M)
-endif
+OBJS		= $(SRCS:.c=.o)
 
 CC 			= cc
 RM 			= rm -f
-INCLUDE		= -I./includes/
 CFLAGS 		= -Wall -Wextra -Werror
-
 
 all: $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ $^
-
-bonus:
-	make WITH_BONUS=1 all
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	$(RM) $(OBJS_M) $(OBJS_B)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
