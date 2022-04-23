@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:16:32 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/23 12:09:39 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 15:49:05 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	main(int argc, char **argv)
 	init_semaphores(&box, &sems);
 	call_philos(&box, &sems);
 	sem_wait(sems.sem_death);
+	if (box.min_meal > 0)
+	{
+		printf("식사 감독관을 없앤다.\n");
+		kill(box.pid_for_full, SIGINT);
+	}
 	i = 0;
 	while (i < box.num_of_philo)
 	{

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/21 21:27:33 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:51:34 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_box
 	time_t	simul_start;
 	int		min_meal;
 	t_philo	**philos;
+	pid_t	pid_for_full;
 }	t_box;
 
 void	call_philos(t_box *box, t_sems *sems);

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/23 12:09:39 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 15:47:02 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,36 +66,54 @@ static	void	call_philo(t_box *box, int idx, t_sems *sems)
 	}
 }
 
-static	void	*monitor_if_all_full(void *arg)
-{
-	int		i;
-	t_box	*box;
+// static	void	*monitor_if_all_full(void *arg)
+// {
+// 	int		i;
+// 	t_box	*box;
 
-	box = (t_box *)arg;
-	i = -1;
-	while (++i < box->num_of_philo)
+// 	box = (t_box *)arg;
+// 	i = -1;
+// 	while (++i < box->num_of_philo)
+// 	{
+// 		sem_wait(box->philos[0]->sems->sem_meal);
+// 		printf("somone finished its meal(%d)\n", i);
+// 	}
+// 	// sem_wait(box->philos[0]->sems->sem_print);
+// 	sem_post(box->philos[0]->sems->sem_death);
+// 	return (NULL);
+// }
+
+static	void	create_meal_checker(t_box *box, t_sems *sems)
+{
+	int	i;
+
+	box->pid_for_full = fork();
+	if (box->pid_for_full < 0)
+		exit_after_free("Failed to call fork()", box, sems);
+	else if (!box->pid_for_full)
 	{
-		sem_wait(box->philos[0]->sems->sem_meal);
-		printf("somone finished its meal(%d)\n", i);
+		i = -1;
+		while (++i < box->num_of_philo)
+		{
+			sem_wait(sems->sem_meal);
+			sem_wait(sems->sem_print);
+			printf("somone finished its meal(%dth)\n", i);
+			sem_post(sems->sem_print);
+		}
+		sem_post(sems->sem_death);
+		sem_wait(sems->sem_print);
+		exit(EXIT_SUCCESS);
 	}
-	// sem_wait(box->philos[0]->sems->sem_print);
-	sem_post(box->philos[0]->sems->sem_death);
-	return (NULL);
 }
 
 void	call_philos(t_box *box, t_sems *sems)
 {
 	int			idx;
-	pthread_t	tid;
 
 	idx = 0;
+	if (box->min_meal > 0)
+		create_meal_checker(box, sems);
 	box->simul_start = get_time();
 	while (idx < box->num_of_philo)
 		call_philo(box, idx++, sems);
-	if (box->min_meal > 0)
-	{
-		if (pthread_create(&tid, NULL, monitor_if_all_full, box))
-			exit_after_kill(box, sems);
-		pthread_detach(tid);
-	}
 }

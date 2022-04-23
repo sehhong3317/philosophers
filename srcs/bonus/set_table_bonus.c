@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:03:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/18 11:21:45 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/23 14:33:34 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static	void	initiate_box(t_box *box)
 	box->time_to_eat = -1;
 	box->time_to_sleep = -1;
 	box->min_meal = 0;
+	box->pid_for_full = 0;
 }
 
 static long	ft_atoi(char *str)
