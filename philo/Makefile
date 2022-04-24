@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/23 17:52:16 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/24 17:12:14 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRCS 		= $(addprefix $(SRCS_DIR), \
 				do_routine.c \
 				main.c \
 				rm_table.c \
-				routine.c \
 				run_simulation.c \
 				set_table.c \
 				utils.c \

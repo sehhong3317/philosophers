@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/23 16:24:36 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 17:09:46 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,14 @@ t_err	call_philos(t_box *box);
 int		check_err(t_err ret);
 
 /* do_routine */
+int		check_stat(t_box *box);
+int		hold_even_philos(t_philo *philo);
 void	*do_routine(void *arg);
 
 /* rm_table */
 void	detach_philos(t_box *box, int idx);
 void	destroy_mutexes(t_box *box);
 void	free_philos(t_box *box, int idx);
-
-/* routine */
-int		hold_even_philos(t_philo *philo);
-int		eats_with_forks(t_philo *philo, int (*check_stat)(t_box *));
-int		sleeps(t_philo *philo, int (*check_stat)(t_box *));
-int		thinks(t_philo *philo, int (*check_stat)(t_box *));
 
 /* run_simuation */
 void	run_simulation(t_box *box);
@@ -95,7 +91,8 @@ t_err	set_table(int argc, char **argv, t_box *box);
 /* utils */
 void	*ft_calloc(size_t count, size_t size);
 time_t	get_time(void);
-int		set_time(t_box *box, time_t time);
-void	print_stat(t_philo *philo, char *stat, t_act action);
+void	set_time(time_t time);
+void	print_stat(t_philo *philo, char *stat);
+void	philo_eat(t_philo *philo);
 
 #endif

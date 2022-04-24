@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 10:48:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 11:15:40 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,23 @@ static	t_err	fill_up_box(t_box *box, char **argv)
 	return (NO_ERR);
 }
 
+static	int	init_mutexes(t_box *box)
+{
+	int	i;
+
+	i = 0;
+	if (pthread_mutex_init(&(box->etc_lock), NULL))
+		return (-1);
+	if (pthread_mutex_init(&(box->msg_lock), NULL))
+		return (-1);
+	while (i < box->num_of_philo)
+	{
+		if (pthread_mutex_init(&(box->forks[i++]), NULL))
+			return (-1);
+	}
+	return (0);
+}
+
 t_err	set_table(int argc, char **argv, t_box *box)
 {
 	t_err	ret;
@@ -72,6 +89,12 @@ t_err	set_table(int argc, char **argv, t_box *box)
 	{
 		free_philos(box, 0);
 		return (ret);
+	}
+	if (init_mutexes(box) == -1)
+	{
+		destroy_mutexes(box);
+		free_philos(box, 0);
+		return (ERR_MUTEX);
 	}
 	return (NO_ERR);
 }

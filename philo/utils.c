@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/23 16:24:50 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 17:11:57 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,44 @@ time_t	get_time(void)
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 
-int	set_time(t_box *box, time_t time)
+void	set_time(time_t time)
 {
 	time_t	target_time;
 
 	target_time = get_time() + time;
 	while (get_time() < target_time)
-	{
 		usleep(100);
-		if (box->dead_philo >= 0)
-			return (-1);
-	}
-	return (0);
 }
 
-void	print_stat(t_philo *philo, char *stat, t_act action)
+void	philo_eat(t_philo *philo)
 {
 	t_box	*box;
 
+	if (check_stat(philo->box) > 0)
+		return ;
 	box = philo->box;
 	pthread_mutex_lock(&(box->msg_lock));
-	if (action == EAT)
-	{
-		philo->last_meal = get_time();
-		philo->meal_cnt++;
-		printf("%ld %d %s\n", philo->last_meal - box->simul_start, \
-			(philo->idx) + 1, stat);
-		if (box->min_meal > 0 && philo->meal_cnt == box->min_meal)
-		{	
-			box->meal_done--;
-			printf("satisfied meal plan(%d)\n", philo->idx + 1);
-		}
+	philo->last_meal = get_time();
+	philo->meal_cnt++;
+	printf("%ld %d %s\n", philo->last_meal - box->simul_start, \
+		(philo->idx) + 1, "\033[1;32mis eating\033[0m");
+	if (box->min_meal > 0 && philo->meal_cnt == box->min_meal)
+	{	
+		box->meal_done--;
+		printf("satisfied meal plan(%d)\n", philo->idx + 1);
 	}
-	else
-		printf("%ld %d %s\n", get_time() - box->simul_start, \
+	pthread_mutex_unlock(&(box->msg_lock));
+}
+
+void	print_stat(t_philo *philo, char *stat)
+{
+	t_box	*box;
+
+	if (check_stat(philo->box) > 0)
+		return ;
+	box = philo->box;
+	pthread_mutex_lock(&(box->msg_lock));
+	printf("%ld %d %s\n", get_time() - box->simul_start, \
 			(philo->idx) + 1, stat);
-	if (box->min_meal == 0 || box->meal_done)
-		pthread_mutex_unlock(&(box->msg_lock));
+	pthread_mutex_unlock(&(box->msg_lock));
 }
