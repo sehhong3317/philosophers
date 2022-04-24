@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 17:11:57 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 18:29:32 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,19 @@ void	set_time(time_t time)
 		usleep(100);
 }
 
-void	philo_eat(t_philo *philo)
+int	print_eat(t_philo *philo)
 {
 	t_box	*box;
 
-	if (check_stat(philo->box) > 0)
-		return ;
 	box = philo->box;
 	pthread_mutex_lock(&(box->msg_lock));
 	philo->last_meal = get_time();
 	philo->meal_cnt++;
+	if (check_stat(philo->box) > 0)
+	{
+		pthread_mutex_unlock(&(box->msg_lock));
+		return (-1);
+	}
 	printf("%ld %d %s\n", philo->last_meal - box->simul_start, \
 		(philo->idx) + 1, "\033[1;32mis eating\033[0m");
 	if (box->min_meal > 0 && philo->meal_cnt == box->min_meal)
@@ -58,17 +61,22 @@ void	philo_eat(t_philo *philo)
 		printf("satisfied meal plan(%d)\n", philo->idx + 1);
 	}
 	pthread_mutex_unlock(&(box->msg_lock));
+	return (0);
 }
 
-void	print_stat(t_philo *philo, char *stat)
+int	print_stat(t_philo *philo, char *stat)
 {
 	t_box	*box;
 
-	if (check_stat(philo->box) > 0)
-		return ;
 	box = philo->box;
 	pthread_mutex_lock(&(box->msg_lock));
+	if (check_stat(philo->box) > 0)
+	{
+		pthread_mutex_unlock(&(box->msg_lock));
+		return (-1);
+	}
 	printf("%ld %d %s\n", get_time() - box->simul_start, \
 			(philo->idx) + 1, stat);
 	pthread_mutex_unlock(&(box->msg_lock));
+	return (0);
 }

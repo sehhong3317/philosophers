@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 17:36:55 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 19:01:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,17 @@ static	int	if_all_alive(t_box *box)
 	return (0);
 }
 
+// etc_lock -> msg_lock
 void	run_simulation(t_box *box)
 {
 	int	idx;
 
 	idx = -1;
-	pthread_mutex_lock(&(box->etc_lock));
+	pthread_mutex_lock(&(box->msg_lock));
 	box->simul_start = get_time();
 	while (++idx < box->num_of_philo)
 		box->philos[idx]->last_meal = box->simul_start;
-	pthread_mutex_unlock(&(box->etc_lock));
+	pthread_mutex_unlock(&(box->msg_lock));
 	while (1)
 	{
 		if (if_all_alive(box) == -1)

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 17:09:46 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 19:14:05 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ typedef enum s_err
 	ERR_THD_CREAT
 }	t_err;
 
-typedef enum s_act
-{
-	FORK1 = 0,
-	FORK2,
-	EAT,
-	SLEEP,
-	THINK,
-	WAIT
-}	t_act;
-
 typedef struct s_philo
 {
 	pthread_t		tid;
@@ -60,7 +50,7 @@ typedef struct s_box
 	time_t				simul_start;
 	int					dead_philo;
 	int					meal_done;
-	pthread_mutex_t		etc_lock;
+	// pthread_mutex_t		etc_lock;
 	pthread_mutex_t		msg_lock;
 	pthread_mutex_t		*forks;
 	t_philo				**philos;
@@ -74,7 +64,6 @@ int		check_err(t_err ret);
 
 /* do_routine */
 int		check_stat(t_box *box);
-int		hold_even_philos(t_philo *philo);
 void	*do_routine(void *arg);
 
 /* rm_table */
@@ -92,7 +81,7 @@ t_err	set_table(int argc, char **argv, t_box *box);
 void	*ft_calloc(size_t count, size_t size);
 time_t	get_time(void);
 void	set_time(time_t time);
-void	print_stat(t_philo *philo, char *stat);
-void	philo_eat(t_philo *philo);
+int		print_stat(t_philo *philo, char *stat);
+int		print_eat(t_philo *philo);
 
 #endif

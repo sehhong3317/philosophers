@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 17:11:28 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 19:01:04 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static	t_err	prepare_philo(t_box *box, int idx)
 	return (NO_ERR);
 }
 
-// TODO 좀 더 생각해보자 (공부할 부분)
 static	t_err	rm_table_if_err(t_box *box, int idx, t_err ret)
 {
 	if (ret == ERR_THD_CREAT)
@@ -39,18 +38,19 @@ static	t_err	rm_table_if_err(t_box *box, int idx, t_err ret)
 	return (ret);
 }
 
+// etc_lock -> msg_lock
 static	t_err	call_philo(t_box *box, int idx)
 {
 	t_philo	*philo;
 
 	philo = box->philos[idx];
-	pthread_mutex_lock(&(box->etc_lock));
+	pthread_mutex_lock(&(box->msg_lock));
 	if (pthread_create(&(philo->tid), NULL, do_routine, philo))
 	{
-		pthread_mutex_unlock(&(box->etc_lock));
+		pthread_mutex_unlock(&(box->msg_lock));
 		return (ERR_THD_CREAT);
 	}
-	pthread_mutex_unlock(&(box->etc_lock));
+	pthread_mutex_unlock(&(box->msg_lock));
 	return (NO_ERR);
 }
 
