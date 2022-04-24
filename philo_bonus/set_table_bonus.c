@@ -6,21 +6,11 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:03:00 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/23 14:33:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/24 19:30:21 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-static	void	initiate_box(t_box *box)
-{
-	box->num_of_philo = 0;
-	box->time_to_die = 0;
-	box->time_to_eat = -1;
-	box->time_to_sleep = -1;
-	box->min_meal = 0;
-	box->pid_for_full = 0;
-}
 
 static long	ft_atoi(char *str)
 {
@@ -44,29 +34,24 @@ static long	ft_atoi(char *str)
 	return ((long)nbr);
 }
 
-static	void	parse_args(int argc, char **argv, t_box *box)
+void	set_table(t_box *box, int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
 		exit_with_err("Invalid number of argument");
-	box->num_of_philo = (int)ft_atoi(argv[1]);
-	box->time_to_die = (time_t)ft_atoi(argv[2]);
-	box->time_to_eat = (time_t)ft_atoi(argv[3]);
-	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
-	if (box->num_of_philo <= 0 || box->time_to_die <= 0 || \
-		box->time_to_eat <= -1 || box->time_to_sleep <= -1)
-		exit_with_err("Invalid value of argument");
+	memset(box, 0, sizeof(t_box));
 	if (argc == 6)
 	{
 		box->min_meal = (int)ft_atoi(argv[5]);
 		if (box->min_meal <= 0)
 			exit_with_err("Invalid value for the minimum number of meal");
 	}
-}
-
-void	set_table(t_box *box, int argc, char **argv)
-{
-	initiate_box(box);
-	parse_args(argc, argv, box);
+	box->num_of_philo = (int)ft_atoi(argv[1]);
+	box->time_to_die = (time_t)ft_atoi(argv[2]);
+	box->time_to_eat = (time_t)ft_atoi(argv[3]);
+	box->time_to_sleep = (time_t)ft_atoi(argv[4]);
+	if (box->num_of_philo < 1 || box->time_to_die <= 0 || \
+		box->time_to_eat < 0 || box->time_to_sleep < 0)
+		exit_with_err("Invalid value of argument");
 	box->philos = (t_philo **)ft_calloc(box->num_of_philo, sizeof(t_philo *));
 	if (!box->philos)
 		exit_with_err("Failed to call malloc()");

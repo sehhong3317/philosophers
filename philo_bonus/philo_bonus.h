@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/23 14:51:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 08:19:13 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	exit_after_kill(t_box *box, t_sems *sems);
 
 /* utils */
 time_t	get_time(void);
-void	print_stat(t_philo *philo, char *str, int if_eats);
+void	print_eat(t_philo *philo);
+void	print_stat(t_philo *philo, char *str);
 void	set_time(time_t time);
 void	*ft_calloc(size_t count, size_t size);
 
