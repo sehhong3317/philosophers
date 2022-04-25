@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+<<<<<<< HEAD
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+=======
+/*   By: sehhong <sehhong@student.42seoul.kr>            +#+  +:+       +#+        */
+>>>>>>> e838e2109e799426427171e2b474feaefed57449
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 13:45:05 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 13:58:51 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
