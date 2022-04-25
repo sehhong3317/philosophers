@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 19:14:05 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 11:53:50 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ typedef struct s_box
 	time_t				simul_start;
 	int					dead_philo;
 	int					meal_done;
-	// pthread_mutex_t		etc_lock;
-	pthread_mutex_t		msg_lock;
+	pthread_mutex_t		lock;
 	pthread_mutex_t		*forks;
 	t_philo				**philos;
 }				t_box;

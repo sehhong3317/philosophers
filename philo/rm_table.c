@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rm_table.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:30:47 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 19:02:39 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 11:54:56 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	destroy_mutexes(t_box *box)
 {
 	int	i;
 
-	// pthread_mutex_destroy(&(box->etc_lock));
-	pthread_mutex_destroy(&(box->msg_lock));
+	pthread_mutex_destroy(&(box->lock));
 	i = 0;
 	while (i < box->num_of_philo)
 		pthread_mutex_destroy(&(box->forks[i++]));

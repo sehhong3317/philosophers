@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 19:14:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 11:59:55 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ int	check_stat(t_box *box)
 	return (0);
 }
 
-static	int	hold_even_philos(t_philo *philo)
+static	void	hold_even_philos(t_philo *philo)
 {
 	if ((philo->idx + 1) % 2 == 0)
 		set_time(philo->box->time_to_eat / 3);
-	return (0);
 }
 
 static	int	routine(t_philo *philo)
@@ -70,8 +69,7 @@ void	*do_routine(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->last_meal)
 		;
-	if (hold_even_philos(philo) == -1)
-		return (NULL);
+	hold_even_philos(philo);
 	while (!check_stat(philo->box))
 	{
 		ret = routine(philo);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 08:18:43 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 13:45:05 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ time_t	get_time(void)
 
 void	print_eat(t_philo *philo)
 {
-	sem_wait(philo->sems->sem_print);
 	philo->last_meal = get_time();
 	philo->meal_cnt++;
+	sem_wait(philo->sems->sem_print);
 	printf("%ld %d %s\n", philo->last_meal - philo->box->simul_start, \
 	philo->idx, "\033[1;32mis eating\033[0m");
 	if (philo->meal_cnt == philo->box->min_meal)

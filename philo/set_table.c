@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/24 19:02:47 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/25 11:55:28 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ static	int	init_mutexes(t_box *box)
 	int	i;
 
 	i = 0;
-	// if (pthread_mutex_init(&(box->etc_lock), NULL))
-	// 	return (-1);
-	if (pthread_mutex_init(&(box->msg_lock), NULL))
+	if (pthread_mutex_init(&(box->lock), NULL))
 		return (-1);
 	while (i < box->num_of_philo)
 	{
