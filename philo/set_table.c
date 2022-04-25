@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:35:12 by sehhong           #+#    #+#             */
 /*   Updated: 2022/04/25 11:55:28 by sehhong          ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   run_simulation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
 /*   Updated: 2022/04/25 11:54:02 by sehhong          ###   ########.fr       */

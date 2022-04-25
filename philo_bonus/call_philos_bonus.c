@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   call_philos_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 08:40:31 by sehhong           #+#    #+#             */
 /*   Updated: 2022/04/25 13:21:11 by sehhong          ###   ########.fr       */
