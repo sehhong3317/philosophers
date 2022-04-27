@@ -6,7 +6,7 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/27 18:40:14 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/27 21:45:49 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS		= $(addprefix $(SRCS_DIR), \
 				do_routine_bonus.c \
 				exit_bonus.c \
 				main_bonus.c \
-				run_simulation.c \
+				run_simulation_bonus.c \
 				semaphore_bonus.c \
 				set_table_bonus.c \
 				utils_bonus.c \

@@ -6,11 +6,19 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 18:38:37 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 21:22:03 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 22:20:26 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+// int	notify_last_one()
+// {
+// 	static	int	cnt;
+
+// 	cnt++;
+// 	return (cnt);
+// }
 
 static	void	*monitor(void *arg)
 {
@@ -34,12 +42,12 @@ void	do_routine(t_philo *philo)
 	// philo->last_meal = philo->box->simul_start;
 	philo->last_meal = get_time();
 	// if (pthread_create(&(philo->tid), NULL, monitor, philo))
-		// exit_after_kill(philo->box, philo->sems);
+	// 	exit_after_kill(philo->box, philo->sems);
 	pthread_create(&(philo->tid), NULL, monitor, philo);
 	sem_wait(philo->sems->sem_wait);
 	sem_post(philo->sems->sem_wait);
 	if ((philo->idx + 1) % 2 == 0)
-		set_time(philo->box->time_to_eat / 3);
+		usleep(10000);
 	while (1)
 	{
 		sem_wait(philo->sems->sem_fork);

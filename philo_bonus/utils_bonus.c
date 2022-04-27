@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 19:01:08 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 21:28:21 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 22:25:21 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ time_t	get_time(void)
 
 void	philo_eat(t_philo *philo)
 {
-	philo->last_meal = get_time();
+	// sem_wait(philo->sems->sem_eat);
+	// sem_post(philo->sems->sem_eat);
 	sem_wait(philo->sems->sem_print);
-	printf("%ld %d %s\n", philo->last_meal - philo->box->simul_start, \
+	printf("%ld %d %s\n", get_time() - philo->box->simul_start, \
 		philo->idx + 1, "\033[1;32mis eating\033[0m");
 	sem_post(philo->sems->sem_print);
+	philo->last_meal = get_time();
 	set_time(philo->box->time_to_eat);
 	philo->meal_cnt++;
 	if (philo->box->min_meal > 0 && philo->meal_cnt == philo->box->min_meal)

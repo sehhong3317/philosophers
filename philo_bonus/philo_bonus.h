@@ -6,18 +6,18 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 21:31:00 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 23:54:52 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
-# define SEM_FORK_NAME "/sem_fork"
-# define SEM_PRINT_NAME "/sem_print"
-# define SEM_MEAL_NAME "/sem_meal"
-# define SEM_DEATH_NAME "/sem_death"
-# define SEM_WAIT_NAME "/sem_wait"
-# define SEM_EAT_NAME "/sem_eat"
+# define FORK_NAME "/fork"
+# define PRINT_NAME "/print"
+# define MEAL_NAME "/meal"
+# define DEATH_NAME "/death"
+# define WAIT_NAME "/wait"
+# define EAT_NAME "/eat"
 
 # include <pthread.h>
 # include <semaphore.h>

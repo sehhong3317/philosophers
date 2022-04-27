@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 10:26:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 20:50:21 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 22:07:46 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 void	destroy_sems(t_sems *sems)
 {
 	sem_close(sems->sem_fork);
-	sem_unlink(SEM_FORK_NAME);
+	sem_unlink(FORK_NAME);
 	sem_close(sems->sem_print);
-	sem_unlink(SEM_PRINT_NAME);
+	sem_unlink(PRINT_NAME);
 	sem_close(sems->sem_meal);
-	sem_unlink(SEM_MEAL_NAME);
+	sem_unlink(MEAL_NAME);
 	sem_close(sems->sem_death);
-	sem_unlink(SEM_DEATH_NAME);
+	sem_unlink(DEATH_NAME);
 	sem_close(sems->sem_wait);
-	sem_unlink(SEM_WAIT_NAME);
+	sem_unlink(WAIT_NAME);
 	sem_close(sems->sem_eat);
-	sem_unlink(SEM_EAT_NAME);
+	sem_unlink(EAT_NAME);
 }
 
 void	free_philos(t_box *box)

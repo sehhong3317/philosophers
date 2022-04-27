@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:16:32 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 18:50:12 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 23:53:58 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,18 @@ void	exit_with_err(char *str)
 int	main(int argc, char **argv)
 {
 	t_box	box;
-	t_sems	sems;
 	int		i;
 
 	set_table(&box, argc, argv);
-	init_semaphores(&box, &sems);
-	run_simulation(&box, &sems);
-	sem_wait(sems.sem_death);
+	init_semaphores(&box);
+	run_simulation(&box);
+	sem_wait(box.sem_death);
 	if (box.min_meal > 0)
 		kill(box.pid_for_full, SIGINT);
 	i = 0;
 	while (i < box.num_of_philo)
 		kill(box.philos[i++]->pid, SIGINT);
-	destroy_sems(&sems);
+	destroy_sems(&box);
 	free_philos(&box);
 	return (0);
 }
