@@ -6,12 +6,16 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 14:03:56 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 15:07:39 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
+# define NOT_READY	-2
+# define ALL_ALIVE	-1
+# define PHILO_DEAD	1
 
 # include <unistd.h>
 # include <stdio.h>
@@ -48,15 +52,14 @@ typedef struct s_box
 	time_t				time_to_sleep;
 	int					min_meal;
 	time_t				simul_start;
-	int					dead_philo;
+	int					alert;
 	int					meal_done;
-	pthread_mutex_t		lock;
+	pthread_mutex_t		msg_lock;
+	pthread_mutex_t		wait_lock;
+	pthread_mutex_t		eat_lock;
 	pthread_mutex_t		*forks;
 	t_philo				**philos;
 }				t_box;
-
-/* call_philos */
-t_err	call_philos(t_box *box);
 
 /* check_err */
 int		check_err(t_err ret);
@@ -65,22 +68,28 @@ int		check_err(t_err ret);
 int		check_stat(t_box *box);
 void	*do_routine(void *arg);
 
+/* fill_up_box */
+t_err	fill_up_box(int argc, char **argv, t_box *box);
+
+/* monitor_philos */
+void	monitor_philos(t_box *box);
+
 /* rm_table */
-void	detach_philos(t_box *box, int idx);
 void	destroy_mutexes(t_box *box);
 void	free_philos(t_box *box, int idx);
+t_err	rm_table(t_box *box, int idx, t_err ret);
 
-/* run_simuation */
-void	run_simulation(t_box *box);
+/* run_simulation */
+t_err	run_simulation(t_box *box);
 
 /* set_table */
-t_err	set_table(int argc, char **argv, t_box *box);
+t_err	set_table(t_box *box);
 
 /* utils */
 void	*ft_calloc(size_t count, size_t size);
 time_t	get_time(void);
 void	set_time(time_t time);
 int		print_stat(t_philo *philo, char *stat);
-int		print_eat(t_philo *philo);
+int		eat(t_philo *philo);
 
 #endif

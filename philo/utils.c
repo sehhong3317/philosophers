@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 14:04:05 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 15:07:27 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,30 @@ void	set_time(time_t time)
 		usleep(100);
 }
 
-int	print_eat(t_philo *philo)
+int	eat(t_philo *philo)
 {
 	t_box	*box;
 
 	box = philo->box;
-	pthread_mutex_lock(&(box->lock));
+	pthread_mutex_lock(&(box->msg_lock));
 	philo->last_meal = get_time();
 	philo->meal_cnt++;
 	if (check_stat(philo->box) > 0)
 	{
-		pthread_mutex_unlock(&(box->lock));
+		pthread_mutex_unlock(&(box->msg_lock));
 		return (-1);
 	}
 	printf("%ld %d %s\n", philo->last_meal - box->simul_start, \
 		(philo->idx) + 1, "\033[1;32mis eating\033[0m");
-	if (box->min_meal > 0 && philo->meal_cnt == box->min_meal)
-		box->meal_done--;
-	pthread_mutex_unlock(&(box->lock));
+	pthread_mutex_unlock(&(box->msg_lock));
+	set_time(philo->box->time_to_eat);
+	if (philo->box->min_meal > 0)
+	{
+		pthread_mutex_lock(&(box->eat_lock));
+		if (philo->meal_cnt == philo->box->min_meal)
+			philo->box->meal_done--;
+		pthread_mutex_unlock(&(box->eat_lock));
+	}
 	return (0);
 }
 
@@ -66,14 +72,14 @@ int	print_stat(t_philo *philo, char *stat)
 	t_box	*box;
 
 	box = philo->box;
-	pthread_mutex_lock(&(box->lock));
+	pthread_mutex_lock(&(box->msg_lock));
 	if (check_stat(philo->box) > 0)
 	{
-		pthread_mutex_unlock(&(box->lock));
+		pthread_mutex_unlock(&(box->msg_lock));
 		return (-1);
 	}
 	printf("%ld %d %s\n", get_time() - box->simul_start, \
 			(philo->idx) + 1, stat);
-	pthread_mutex_unlock(&(box->lock));
+	pthread_mutex_unlock(&(box->msg_lock));
 	return (0);
 }

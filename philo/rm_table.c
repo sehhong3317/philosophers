@@ -6,26 +6,20 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:30:47 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 14:03:58 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/27 15:05:26 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	detach_philos(t_box *box, int idx)
-{
-	int	i;
-
-	i = -1;
-	while (++i < idx)
-		pthread_detach(box->philos[i]->tid);
-}
-
 void	destroy_mutexes(t_box *box)
 {
 	int	i;
 
-	pthread_mutex_destroy(&(box->lock));
+	if (box->min_meal > 0)
+		pthread_mutex_destroy(&(box->eat_lock));
+	pthread_mutex_destroy(&(box->msg_lock));
+	pthread_mutex_destroy(&(box->wait_lock));
 	i = 0;
 	while (i < box->num_of_philo)
 		pthread_mutex_destroy(&(box->forks[i++]));
@@ -54,4 +48,11 @@ void	free_philos(t_box *box, int idx)
 		free(box->forks);
 		box->forks = NULL;
 	}
+}
+
+t_err	rm_table(t_box *box, int idx, t_err ret)
+{
+	destroy_mutexes(box);
+	free_philos(box, idx);
+	return (ret);
 }
