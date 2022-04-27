@@ -5,56 +5,53 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 08:44:27 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 14:03:59 by sehhong          ###   ########.fr       */
+/*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
+/*   Updated: 2022/04/27 15:20:41 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static	int	if_all_alive(t_box *box)
+static	int	call_philos(t_box *box)
 {
-	int		i;
-	time_t	curr_time;
+	t_philo	*philo;
+	int		thd_cnt;
+	int		idx;
 
-	i = -1;
-	curr_time = get_time();
-	while (++i < box->num_of_philo)
-	{
-		if (curr_time - box->philos[i]->last_meal > box->time_to_die)
-		{
-			if (box->dead_philo == -1)
-			{
-				pthread_mutex_lock(&(box->lock));
-				box->dead_philo = i;
-				printf("%ld %d %s\n", curr_time - box->simul_start, \
-					box->dead_philo + 1, "\033[1;31m died\033[0m");
-				pthread_mutex_unlock(&(box->lock));
-			}
-			return (-1);
-		}
+	thd_cnt = 0;
+	idx = -1;
+	pthread_mutex_lock(&(box->wait_lock));
+	while (++idx < box->num_of_philo)
+	{	
+		philo = box->philos[idx];
+		if (pthread_create(&(philo->tid), NULL, do_routine, philo))
+			break ;
+		thd_cnt++;
 	}
-	return (0);
+	if (thd_cnt == box->num_of_philo)
+		box->alert = ALL_ALIVE;
+	pthread_mutex_unlock(&(box->wait_lock));
+	return (thd_cnt);
 }
 
-void	run_simulation(t_box *box)
+t_err	run_simulation(t_box *box)
 {
+	int	thd_cnt;
 	int	idx;
 
+	thd_cnt = call_philos(box);
 	idx = -1;
-	pthread_mutex_lock(&(box->lock));
+	pthread_mutex_lock(&(box->wait_lock));
 	box->simul_start = get_time();
 	while (++idx < box->num_of_philo)
 		box->philos[idx]->last_meal = box->simul_start;
-	pthread_mutex_unlock(&(box->lock));
-	while (1)
+	pthread_mutex_unlock(&(box->wait_lock));
+	if (thd_cnt < box->num_of_philo)
 	{
-		if (if_all_alive(box) == -1)
-			break ;
-		if (box->min_meal > 0 && !box->meal_done)
-			break ;
+		idx = -1;
+		while (++idx < thd_cnt)
+			pthread_join(box->philos[idx]->tid, NULL);
+		rm_table(box, box->num_of_philo, ERR_THD_CREAT);
 	}
-	idx = 0;
-	while (idx < box->num_of_philo)
-		pthread_join(box->philos[idx++]->tid, NULL);
+	return (NO_ERR);
 }
