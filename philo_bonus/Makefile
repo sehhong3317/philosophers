@@ -5,19 +5,19 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/20 00:26:13 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/23 18:00:08 by sehhong          ###   ########.fr        #
+#    Created: 2022/04/29 01:40:02 by sehhong           #+#    #+#              #
+#    Updated: 2022/04/29 01:40:02 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo_bonus
+NAME = philo
 
 SRCS_DIR	= ./
 SRCS		= $(addprefix $(SRCS_DIR), \
 				call_philos_bonus.c \
 				exit_bonus.c \
 				main_bonus.c \
-				semaphore_bonus.c \
+				rm_table_bonus.c \
 				set_table_bonus.c \
 				utils_bonus.c \
 				)

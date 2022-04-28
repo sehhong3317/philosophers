@@ -5,28 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/10 15:16:32 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 14:04:09 by sehhong          ###   ########.fr       */
+/*   Created: 2022/04/29 01:33:58 by sehhong           #+#    #+#             */
+/*   Updated: 2022/04/29 02:13:22 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
+// TODO usleep(1000);
+void	create_meal_checker(t_box *box)
+{
+	int	i;
+
+	box->pid_for_full = fork();
+	if (box->pid_for_full < 0)
+		exit_after_free("Failed to call fork()", box);
+	else if (!box->pid_for_full)
+	{
+		i = -1;
+		usleep(1000);
+		while (++i < box->num_of_philo)
+			sem_wait(box->sem_meal);
+		sem_post(box->sem_death);
+		sem_wait(box->sem_print);
+		exit(EXIT_SUCCESS);
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	t_box	box;
-	t_sems	sems;
-	int		i;
+	t_box	*box;
 
-	set_table(&box, argc, argv);
-	init_semaphores(&box, &sems);
-	call_philos(&box, &sems);
-	sem_wait(sems.sem_death);
-	if (box.min_meal > 0)
-		kill(box.pid_for_full, SIGINT);
-	i = 0;
-	while (i < box.num_of_philo)
-		kill(box.philos[i++]->pid, SIGINT);
-	finish_meal(&box, &sems);
+	if (argc != 5 && argc != 6)
+		exit_with_err("Invalid number of argument");
+	box = set_table(argc, argv);
+	if (box->min_meal > 0)
+		create_meal_checker(box);
+	call_philos(box);
+	sem_wait(box->sem_death);
+	kill_philos(box);
+	delete_sems(box);
+	free_philos(box);
 	return (0);
 }

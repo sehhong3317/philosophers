@@ -6,42 +6,27 @@
 /*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/25 08:19:13 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 02:19:37 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
-# define SEM_FORK_NAME "/sem_fork"
-# define SEM_PRINT_NAME "/sem_print"
-# define SEM_MEAL_NAME "/sem_meal"
-# define SEM_DEATH_NAME "/sem_death"
+
+# define FORK_NAME "/sem_fork"
+# define PRINT_NAME "/sem_print"
+# define MEAL_NAME "/sem_meal"
+# define DEATH_NAME "/sem_death"
+# define CALL_NAME	"/sem_hold"
 
 # include <pthread.h>
 # include <semaphore.h>
 # include <signal.h>
 # include <stdio.h>
-# include <string.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/time.h>
-# include <stdio.h>
 # include <unistd.h>
-
-typedef enum s_stype
-{
-	FORK = 0,
-	PRINT,
-	MEAL,
-	DEATH
-}	t_stype;
-
-typedef struct s_sems
-{
-	sem_t	*sem_fork;
-	sem_t	*sem_print;
-	sem_t	*sem_death;
-	sem_t	*sem_meal;
-}	t_sems;
 
 typedef struct s_philo
 {
@@ -51,7 +36,6 @@ typedef struct s_philo
 	time_t			last_meal;
 	int				meal_cnt;
 	struct s_box	*box;
-	t_sems			*sems;
 }	t_philo;
 
 typedef struct s_box
@@ -62,24 +46,32 @@ typedef struct s_box
 	time_t	time_to_sleep;
 	time_t	simul_start;
 	int		min_meal;
-	t_philo	**philos;
+	t_philo	*philos;
 	pid_t	pid_for_full;
+	sem_t	*sem_fork;
+	sem_t	*sem_print;
+	sem_t	*sem_death;
+	sem_t	*sem_meal;
+	sem_t	*sem_hold;
 }	t_box;
 
-void	call_philos(t_box *box, t_sems *sems);
-void	init_semaphores(t_box *box, t_sems *sems);
-void	set_table(t_box *box, int argc, char **argv);
+t_box	*set_table(int argc, char **argv);
+void	call_philos(t_box *box);
+
+/* rm_table */
+void	delete_sems(t_box *box);
+void	free_philos(t_box *box);
+void	kill_philos(t_box *box);
 
 /* exit */
-void	finish_meal(t_box *box, t_sems *sems);
+void	print_err(char *str);
 void	exit_with_err(char *str);
-void	exit_after_free(char *str, t_box *box, t_sems *sems);
-void	kill_philos(t_box *box);
-void	exit_after_kill(t_box *box, t_sems *sems);
+void	exit_after_free(char *str, t_box *box);
+void	exit_after_kill(t_box *box);
 
-/* utils */
+/* util */
 time_t	get_time(void);
-void	print_eat(t_philo *philo);
+void	philo_eat(t_philo *philo);
 void	print_stat(t_philo *philo, char *str);
 void	set_time(time_t time);
 void	*ft_calloc(size_t count, size_t size);
