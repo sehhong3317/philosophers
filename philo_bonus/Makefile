@@ -6,11 +6,11 @@
 #    By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 01:40:02 by sehhong           #+#    #+#              #
-#    Updated: 2022/04/29 01:40:02 by sehhong          ###   ########.fr        #
+#    Updated: 2022/04/29 02:46:01 by sehhong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 
 SRCS_DIR	= ./
 SRCS		= $(addprefix $(SRCS_DIR), \
