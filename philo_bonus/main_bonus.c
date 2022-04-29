@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 01:33:58 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 02:13:22 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 15:01:27 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	create_meal_checker(t_box *box)
 	else if (!box->pid_for_full)
 	{
 		i = -1;
-		usleep(1000);
+		usleep(1500);
 		while (++i < box->num_of_philo)
 			sem_wait(box->sem_meal);
 		sem_post(box->sem_death);

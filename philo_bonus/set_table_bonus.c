@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 01:31:33 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 01:36:10 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 13:42:16 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static	void	init_sems(t_box *box)
 	box->sem_meal = sem_open(MEAL_NAME, O_CREAT, 0600, 0);
 	sem_unlink(DEATH_NAME);
 	box->sem_death = sem_open(DEATH_NAME, O_CREAT, 0600, 0);
-	sem_unlink(CALL_NAME);
-	box->sem_hold = sem_open(CALL_NAME, O_CREAT, 0600, 1);
+	sem_unlink(HOLD_NAME);
+	box->sem_hold = sem_open(HOLD_NAME, O_CREAT, 0600, 1);
 	if (box->sem_fork == SEM_FAILED || box->sem_print == SEM_FAILED || \
 		box->sem_meal == SEM_FAILED || box->sem_death == SEM_FAILED || \
 		box->sem_hold == SEM_FAILED)

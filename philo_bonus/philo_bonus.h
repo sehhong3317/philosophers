@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 15:15:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 02:19:37 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 13:59:29 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define PRINT_NAME "/sem_print"
 # define MEAL_NAME "/sem_meal"
 # define DEATH_NAME "/sem_death"
-# define CALL_NAME	"/sem_hold"
+# define HOLD_NAME	"/sem_hold"
 
 # include <pthread.h>
 # include <semaphore.h>

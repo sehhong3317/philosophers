@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 01:37:32 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 01:37:54 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 13:59:59 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ time_t	get_time(void)
 	return (curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000);
 }
 
-// TODO semaphore로 추가로 보호해야하나?
 void	philo_eat(t_philo *philo)
 {
 	sem_wait(philo->box->sem_print);
