@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 09:49:12 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 15:07:39 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 12:06:34 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_box
 	int					alert;
 	int					meal_done;
 	pthread_mutex_t		msg_lock;
-	pthread_mutex_t		wait_lock;
+	pthread_mutex_t		hold_lock;
 	pthread_mutex_t		eat_lock;
 	pthread_mutex_t		*forks;
 	t_philo				**philos;

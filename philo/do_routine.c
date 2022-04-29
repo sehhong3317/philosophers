@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:23:56 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 15:07:30 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 11:53:39 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	*do_routine(void *arg)
 	ret = 0;
 	philo = (t_philo *)arg;
 	while (!philo->last_meal)
-		;
+		usleep(100);
 	if (philo->box->alert == NOT_READY)
 		return (NULL);
 	if ((philo->idx + 1) % 2 == 0)
-		set_time(philo->box->time_to_eat / 3);
+		set_time(philo->box->time_to_eat / 5);
 	while (!check_stat(philo->box))
 	{
 		ret = routine(philo);

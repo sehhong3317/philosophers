@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 14:33:16 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 15:07:27 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 11:43:43 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	eat(t_philo *philo)
 	box = philo->box;
 	pthread_mutex_lock(&(box->msg_lock));
 	philo->last_meal = get_time();
-	philo->meal_cnt++;
 	if (check_stat(philo->box) > 0)
 	{
 		pthread_mutex_unlock(&(box->msg_lock));
@@ -57,6 +56,7 @@ int	eat(t_philo *philo)
 		(philo->idx) + 1, "\033[1;32mis eating\033[0m");
 	pthread_mutex_unlock(&(box->msg_lock));
 	set_time(philo->box->time_to_eat);
+	philo->meal_cnt++;
 	if (philo->box->min_meal > 0)
 	{
 		pthread_mutex_lock(&(box->eat_lock));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 11:42:05 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/27 15:18:20 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 12:08:23 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	int	init_mutexes(t_box *box)
 	i = 0;
 	if (box->min_meal > 0 && pthread_mutex_init(&(box->eat_lock), NULL))
 		return (-1);
-	if (pthread_mutex_init(&(box->wait_lock), NULL))
+	if (pthread_mutex_init(&(box->hold_lock), NULL))
 		return (-1);
 	if (pthread_mutex_init(&(box->msg_lock), NULL))
 		return (-1);
@@ -40,9 +40,9 @@ static	int	prepare_philo(t_box *box, int idx)
 		return (-1);
 	philo->idx = idx;
 	philo->box = box;
-	box->philos[idx] = philo;
 	philo->fork1 = &(box->forks[idx]);
 	philo->fork2 = &(box->forks[(idx + 1) % box->num_of_philo]);
+	box->philos[idx] = philo;
 	return (0);
 }
 
