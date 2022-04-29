@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 01:30:55 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 15:07:13 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 17:03:20 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,14 @@ static	void	philo_behave(t_philo *philo)
 	if (pthread_create(&(philo->tid), NULL, monitor, philo))
 	{
 		sem_post(box->sem_death);
-		print_err("Failed to create thread");
-		return ;
+		exit_with_err("Failed to create thread");
 	}
 	sem_wait(box->sem_hold);
 	sem_post(box->sem_hold);
 	if ((philo->idx + 1) % 2 == 0)
 		set_time(philo->box->time_to_eat / 5);
 	while (1)
-	{
 		do_routine(philo);
-	}	
 }
 
 void	call_philos(t_box *box)

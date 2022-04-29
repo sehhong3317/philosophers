@@ -6,13 +6,12 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/29 01:33:58 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 15:01:27 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 17:05:22 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-// TODO usleep(1000);
 void	create_meal_checker(t_box *box)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 12:36:53 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/04/29 16:47:02 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static	int	call_philos(t_box *box)
 	while (++idx < box->num_of_philo)
 	{	
 		philo = box->philos[idx];
-		if (pthread_create(&(philo->tid), NULL, do_routine, philo))
+		if (pthread_create(&(philo->tid), NULL, do_routine, philo) || 1)
 			break ;
 		thd_cnt++;
 	}
