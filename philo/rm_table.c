@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rm_table.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:30:47 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 12:06:34 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/04 21:28:04 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	destroy_mutexes(t_box *box)
 	if (box->min_meal > 0)
 		pthread_mutex_destroy(&(box->eat_lock));
 	pthread_mutex_destroy(&(box->msg_lock));
-	pthread_mutex_destroy(&(box->hold_lock));
+	// pthread_mutex_destroy(&(box->hold_lock));
 	i = 0;
 	while (i < box->num_of_philo)
 		pthread_mutex_destroy(&(box->forks[i++]));

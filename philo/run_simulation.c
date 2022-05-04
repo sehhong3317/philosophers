@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_simulation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sehhong <sehhong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sehhong <sehhong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 10:24:09 by sehhong           #+#    #+#             */
-/*   Updated: 2022/04/29 17:08:35 by sehhong          ###   ########.fr       */
+/*   Updated: 2022/05/04 21:28:30 by sehhong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static	int	call_philos(t_box *box)
 
 	thd_cnt = 0;
 	idx = -1;
-	pthread_mutex_lock(&(box->hold_lock));
+	// pthread_mutex_lock(&(box->hold_lock));
 	while (++idx < box->num_of_philo)
 	{	
 		philo = box->philos[idx];
@@ -28,9 +28,10 @@ static	int	call_philos(t_box *box)
 			break ;
 		thd_cnt++;
 	}
+	// pthread_mutex_lock(&(box->hold_lock));
 	if (thd_cnt == box->num_of_philo)
 		box->alert = ALL_ALIVE;
-	pthread_mutex_unlock(&(box->hold_lock));
+	// pthread_mutex_unlock(&(box->hold_lock));
 	return (thd_cnt);
 }
 
@@ -41,11 +42,11 @@ t_err	run_simulation(t_box *box)
 
 	thd_cnt = call_philos(box);
 	idx = -1;
-	pthread_mutex_lock(&(box->hold_lock));
+	// pthread_mutex_lock(&(box->hold_lock));
 	box->simul_start = get_time();
 	while (++idx < box->num_of_philo)
 		box->philos[idx]->last_meal = box->simul_start;
-	pthread_mutex_unlock(&(box->hold_lock));
+	// pthread_mutex_unlock(&(box->hold_lock));
 	if (box->alert == NOT_READY)
 	{
 		idx = -1;
